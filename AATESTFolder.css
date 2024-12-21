@@ -1,0 +1,61 @@
+src/
+├── components/
+│   ├── Banner/
+│   │   ├── Banner.js
+│   │   ├── Banner.css
+│   │   ├── index.js
+│   ├── Navigation/
+│   │   ├── Navbar.js
+│   │   ├── Navbar.css
+│   │   ├── index.js
+│   ├── Footer/
+│   │   ├── Footer.js
+│   │   ├── Footer.css
+│   │   ├── index.js
+│   ├── ErrorPage/
+│   │   ├── ErrorPage.js
+│   │   ├── ErrorPage.css
+│   │   ├── index.js
+│   ├── Home/
+│   │   ├── BannerSection.js
+│   │   ├── WhyChooseUs.js
+│   │   ├── RecentListings.js
+│   │   ├── UserTestimonials.js
+│   │   ├── SpecialOffers.js
+│   │   ├── HomePage.js
+│   │   ├── HomePage.css
+│   │   ├── index.js
+│   ├── Cars/
+│   │   ├── AddCar/
+│   │   │   ├── AddCar.js
+│   │   │   ├── AddCar.css
+│   │   │   ├── index.js
+│   │   ├── MyCars/
+│   │   │   ├── MyCars.js
+│   │   │   ├── MyCars.css
+│   │   │   ├── index.js
+│   │   ├── AvailableCars/
+│   │   │   ├── AvailableCars.js
+│   │   │   ├── AvailableCars.css
+│   │   │   ├── index.js
+│   │   ├── CarDetails/
+│   │   │   ├── CarDetails.js
+│   │   │   ├── CarDetails.css
+│   │   │   ├── index.js
+│   ├── Bookings/
+│   │   ├── MyBookings.js
+│   │   ├── MyBookings.css
+│   │   ├── index.js
+│   ├── Auth/
+│   │   ├── Login.js
+│   │   ├── Register.js
+│   │   ├── Auth.css
+│   │   ├── index.js
+│   ├── Shared/
+│       ├── Button.js
+│       ├── Modal.js
+│       ├── Card.js
+│       ├── Table.js
+│       ├── Loader.js
+│       ├── index.js
+└── App.js
