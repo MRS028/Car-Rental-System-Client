@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Lottie from "lottie-react";
 import {
   AiFillEye,
@@ -8,12 +8,16 @@ import {
   AiOutlineLink,
 } from "react-icons/ai";
 import registrationAnimation from "../../../assets/LottieFiles/registerLottie.json"; // Ensure you have this animation file
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 import SocialLogin from "./SocialLogin";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const RegistrationPage = () => {
+  const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { createNewUser, updateUserProfile } = useContext(AuthContext);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -21,8 +25,39 @@ const RegistrationPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Registration form submitted");
+    const formData = new FormData(e.target);
+    const { email, password, name, photoUrl } = Object.fromEntries(
+      formData.entries()
+    );
+    // console.log(email, password, name, photoUrl);
+
+    createNewUser(email, password)
+    .then((result) => {
+      navigate('/');
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful!',
+        text: 'You have registered successfully.',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      
+      console.log(result.user);
+      updateUserProfile({ displayName: name, photoURL: photoUrl });
+    })
+    .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed!',
+        text: 'Something went wrong. Please try again.',
+        showConfirmButton: true, 
+      });
+      
+      console.log("ERROR", error.message);
+    });
   };
+
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -51,6 +86,7 @@ const RegistrationPage = () => {
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   placeholder="Enter your name"
                   className="w-full px-3 py-2 focus:outline-none border-none"
                   required
@@ -134,7 +170,7 @@ const RegistrationPage = () => {
               Login here
             </Link>
           </p>
-        <SocialLogin></SocialLogin>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

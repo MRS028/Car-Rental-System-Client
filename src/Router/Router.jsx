@@ -4,9 +4,9 @@ import MainLayOut from '../Components/Layouts/MainLayOut';
 import Home from '../Components/Pages/Home/Home';
 import AuthLayout from '../Components/Layouts/AuthLayout';
 import LoginPage from '../Components/Pages/Auth/LoginPage';
-import Register from '../Components/Pages/Auth/RegistrationPage';
 import ErrorPage from '../Components/Pages/ErrorPage/ErrorPage';
 import ForgetPassword from '../Components/Pages/Auth/ForgetPassword';
+import RegistrationPage from '../Components/Pages/Auth/RegistrationPage';
 
 const Router = createBrowserRouter([
     {
@@ -27,7 +27,7 @@ const Router = createBrowserRouter([
                     },
                     {
                         path: '/auth/register',
-                        element: <Register></Register>
+                        element: <RegistrationPage></RegistrationPage>
                     },
                     {
                         path: '/auth/forgetpassword',

@@ -1,17 +1,58 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible, AiOutlineMail } from "react-icons/ai";
 import Lottie from "lottie-react";
 import loginAnimation from '../../../assets/LottieFiles/RegistrationLottie.json'; // Make sure you have this animation file
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 import SocialLogin from "./SocialLogin";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+  const navigate = useNavigate()
+
+  const {userLogin} = useContext(AuthContext);
+
+
+
+
+  const handleLogin = (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const { email, password} = Object.fromEntries(
+        formData.entries()
+      );
+      console.log(email, password);
+  
+      userLogin(email,password)
+      .then((result) => {
+        navigate('/');
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful!',
+          text: 'Welcome Back to CarHub!',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        
+        console.log(result.user);
+  
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed!',
+          text: 'Something went wrong. Please try again.',
+          showConfirmButton: true, 
+        });
+        
+        console.log("ERROR", error.message);
+      });
+    };
 
   return (
     <div className=" flex p-3 items-center justify-center mb-5 mt-5">
@@ -27,7 +68,7 @@ const LoginPage = () => {
         
         {/* Login Form */}
         
-        <form>
+        <form onSubmit={handleLogin}>
           {/* Email Input */}
           <div className="mb-4 relative">
             <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
@@ -38,6 +79,7 @@ const LoginPage = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
                 placeholder="Enter your email"
                 className="w-full px-3 py-2 focus:outline-none border-none"
                 required

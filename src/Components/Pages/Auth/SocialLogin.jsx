@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
-  const handleGoogleSignIn = () => {};
+  const {signInWithGoogle} =useContext(AuthContext);
+  const navigate= useNavigate();
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        // console.log(result?.user?.name);
+        navigate("/");
+        Swal.fire({
+          title: "Registration Successful!",
+          text: "Welcome to Car Hub!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+        });
+      })
+      .catch((error) => {
+        console.log("ERROR", error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: "Invalid email or password. Please try again.",
+          confirmButtonText: "Retry",
+          confirmButtonColor: "#d33",
+        });
+      });
+  };
 
   return (
     <div>
