@@ -7,6 +7,12 @@ import LoginPage from '../Components/Pages/Auth/LoginPage';
 import ErrorPage from '../Components/Pages/ErrorPage/ErrorPage';
 import ForgetPassword from '../Components/Pages/Auth/ForgetPassword';
 import RegistrationPage from '../Components/Pages/Auth/RegistrationPage';
+import AvailableCars from '../Components/Pages/Cars/Available Car/AvailableCars';
+import AddCar from '../Components/Pages/Cars/AddCar/AddCar';
+import MyCar from '../Components/Pages/Cars/My Car/MyCar';
+import MyBookings from '../Components/Pages/Cars/My Car/MyBookings';
+import Blogs from '../Components/Pages/Blogs/Blogs';
+import PrivateRoute from './PrivateRoute';
 
 const Router = createBrowserRouter([
     {
@@ -16,6 +22,26 @@ const Router = createBrowserRouter([
             {
                 path:'/',
                 element: <Home></Home>
+            },
+            {
+                path:'/availableCars',
+                element: <AvailableCars></AvailableCars>
+            },
+            {
+                path:'/addCar',
+                element: <PrivateRoute><AddCar></AddCar></PrivateRoute>
+            },
+            {
+                path:'/myCar',
+                element: <MyCar></MyCar>
+            },
+            {
+                path:'/MyBookings',
+                element: <MyBookings></MyBookings>
+            },
+            {
+                path:'/blogs',
+                element: <Blogs></Blogs>
             },
             {
                 path:'',

@@ -34,9 +34,10 @@ const LoginPage = () => {
         Swal.fire({
           icon: 'success',
           title: 'Login Successful!',
-          text: 'Welcome Back to CarHub!',
+          text: 'Welcome Back to Car Deal!',
           timer: 1500,
-          showConfirmButton: false,
+          showConfirmButton: true,
+          confirmButtonColor: "#1ace53",
         });
         
         console.log(result.user);

@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
-  const {signInWithGoogle} =useContext(AuthContext);
-  const navigate= useNavigate();
+  const { signInWithGoogle, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
@@ -14,11 +16,12 @@ const SocialLogin = () => {
         navigate("/");
         Swal.fire({
           title: "Registration Successful!",
-          text: "Welcome to Car Hub!",
+          text: "Welcome to Car Deal!",
           icon: "success",
-          showConfirmButton: false,
+          showConfirmButton: true,
           timer: 1000,
           timerProgressBar: true,
+          confirmButtonColor: "#d33",
         });
       })
       .catch((error) => {

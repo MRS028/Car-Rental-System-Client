@@ -3,33 +3,16 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import logo from "../../../assets/cardeal.png";
+import { motion } from "framer-motion";
 import { LuLogOut } from "react-icons/lu";
+import { div } from "framer-motion/client";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  console.log(user);
-
-  const links = (
-    <>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="6">My Cars</NavLink>
-      </li>
-      <li>
-        <NavLink to="6">Car Details</NavLink>
-      </li>
-      <li>
-        <NavLink to="6">Submenu</NavLink>
-      </li>
-      <li>
-        <NavLink to="6">Item</NavLink>
-      </li>
-    </>
-  );
+  // console.log(user);
 
   const handleLogout = () => {
     Swal.fire({
@@ -49,16 +32,70 @@ const Navbar = () => {
         logOut().then(() => {
           Swal.fire({
             icon: "success",
-            title: "Successfullu Loggef Out!",
-            text: "Welcome Back to CarHub!",
+            title: "Successfully Loggef Out!",
+            text: "See you again,Have a good day!",
             timer: 1000,
-            showConfirmButton: false,
+            showConfirmButton: true,
+            confirmButtonColor: "#d33",
           });
         });
         navigate("/");
       }
     });
   };
+
+  const links = (
+    <>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/availableCars">Available Cars</NavLink>
+      </li>
+
+      {user && user?.email ? (
+        <>
+          {" "}
+          <li>
+            <NavLink to="/addCar">Add Car</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myCar">My Car</NavLink>
+          </li>
+          <li>
+            <NavLink to="/MyBookings">My Bookings</NavLink>
+          </li>{" "}
+        </>
+      ) : (
+        ""
+      )}
+
+      <li>
+        <NavLink to="/blogs">Blogs</NavLink>
+      </li>
+      {user ? (
+        <>
+          <div className="flex justify-center lg:hidden">
+            <button
+              onClick={handleLogout}
+              className="btn btn-neutral w-28  text-white"
+            >
+              LogOut <LuLogOut />{" "}
+            </button>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
+      {/* //<NavLink */}
+      {/* //   onClick={handleLogout}
+      //   className="btn lg:hidden bg-red-500 hover:bg-red-600 text-white"
+      // >
+      //   LogOut <LuLogOut />
+      // </NavLink> : ''
+     */}
+    </>
+  );
 
   return (
     <div className="navbar w-11/12 mx-auto">
@@ -87,7 +124,28 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">CarHubBD</a>
+        <div className="flex btn-ghost hover:bg-transparent  text-base-100 text-2xl">
+          <img src={logo} className="w-16 hidden lg:flex h-10" alt="" />
+          <p class="relative text-2xl lg:text-3xl font-bold">
+            Car Dea
+            <span class="relative inline-block">
+              l
+              <div className="tooltip tooltip-bottom  text-base-content font-semibold" data-tip='Car Deal Home'>
+              <span class="absolute top-[-2rem] -mx-1 right-[-1rem] text-xs text-red-500">
+                BD
+              </span>
+              </div>
+            </span>
+          </p>
+
+          {/* <motion.span
+            animate={{ color: ["#FF8C00", "#7FFF00", "#0000FF"] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+           Car  Hub
+          </motion.span>{" "}
+          <span className="tooltip-top">  BD</span> */}
+        </div>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -96,18 +154,18 @@ const Navbar = () => {
         {user && user?.email ? (
           <>
             <div
-              className="tooltip tooltip-bottom pr-3 text-base-content font-semibold"
-              data-tip={user?.displayName || "Anonymous User"}
+              className="tooltip tooltip-left lg:tooltip-bottom text-base-content font-semibold"
+              data-tip={user?.email || "Anonymous User"}
             >
               <img
-                className="inline-block w-11 h-11 rounded-full cursor-pointer"
-                src={user?.photoURL || "https://via.placeholder.com/40"}
+                className="inline-block w-11  h-11 rounded-full cursor-pointer"
+                src={user?.photoURL || "userPhoto"}
                 alt="User Avatar"
               />
             </div>
             <button
               onClick={handleLogout}
-              className="btn bg-red-500 hover:bg-red-600 text-white"
+              className="btn bg-red-500 hidden lg:flex hover:bg-red-600 border-none text-white"
             >
               LogOut <LuLogOut />
             </button>
@@ -116,13 +174,13 @@ const Navbar = () => {
           <>
             <Link
               to="/auth/register"
-              className="btn hidden lg:flex bg-green-500 text-white hover:bg-green-600 font-bold"
+              className="btn hidden lg:flex bg-green-500 text-white border-none hover:bg-green-600 font-bold"
             >
               Register
             </Link>
             <Link
               to="/auth/login"
-              className="btn bg-green-500 text-white hover:bg-green-600 font-bold"
+              className="btn bg-green-500 text-white hover:bg-green-600 border-none font-bold"
             >
               <CiLogin></CiLogin> Login
             </Link>

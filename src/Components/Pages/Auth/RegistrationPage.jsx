@@ -17,7 +17,7 @@ import Swal from "sweetalert2";
 const RegistrationPage = () => {
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const { createNewUser, updateUserProfile } = useContext(AuthContext);
+  const { createNewUser, updateUserProfile, logOut } = useContext(AuthContext);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -32,32 +32,35 @@ const RegistrationPage = () => {
     // console.log(email, password, name, photoUrl);
 
     createNewUser(email, password)
-    .then((result) => {
-      navigate('/');
-      Swal.fire({
-        icon: 'success',
-        title: 'Registration Successful!',
-        text: 'You have registered successfully.',
-        timer: 1500,
-        showConfirmButton: false,
-      });
-      
-      console.log(result.user);
-      updateUserProfile({ displayName: name, photoURL: photoUrl });
-    })
-    .catch((error) => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Registration Failed!',
-        text: 'Something went wrong. Please try again.',
-        showConfirmButton: true, 
-      });
-      
-      console.log("ERROR", error.message);
-    });
-  };
+      .then((result) => {
+        updateUserProfile({ displayName: name, photoURL: photoUrl })
+          .then(() => {
+            logOut();
+          })
+          .then(() => {
+            navigate("/auth/login");
+            Swal.fire({
+              icon: "success",
+              title: "Registration Successful!",
+              text: "You have registered successfully.",
+              timer: 2000,
+              showConfirmButton: false,
+            });
+          });
 
-  
+        console.log(result.user);
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Registration Failed!",
+          text: "Something went wrong. Please try again.",
+          showConfirmButton: true,
+        });
+
+        console.log("ERROR", error.message);
+      });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center">
