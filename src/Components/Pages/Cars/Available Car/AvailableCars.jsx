@@ -20,7 +20,7 @@ const AvailableCars = () => {
   }
   return (
     <div className="text-center mt-5">
-      <h2>Available car:{cars.length} </h2>
+      <h2 className="text-3xl font-semibold">Available car: {cars.length} </h2>
 
       <div className="w-11/12 mx-auto grid p-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-3">
         {cars.map((car) => (

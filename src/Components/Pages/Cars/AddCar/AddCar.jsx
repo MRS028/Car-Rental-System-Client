@@ -1,7 +1,17 @@
-import React, { useState } from "react";
-import { FaCar, FaMapMarkerAlt, FaDollarSign, FaClipboardList } from "react-icons/fa";
+import React, { useContext, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import {
+  FaCar,
+  FaMapMarkerAlt,
+  FaDollarSign,
+  FaClipboardList,
+} from "react-icons/fa";
+import { AuthContext } from "../../../../Provider/AuthProvider";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const AddCar = () => {
+  const { user } = useContext(AuthContext);
   const [carData, setCarData] = useState({
     model: "",
     price: "",
@@ -10,6 +20,13 @@ const AddCar = () => {
     features: "",
     description: "",
     location: "",
+    bookingCount: 0, // Default booking count
+    images: [], // For storing uploaded files
+  });
+
+  const [userDetails] = useState({
+    name: user?.displayName, // Replace with actual user data
+    email: user.email,
   });
 
   const handleChange = (e) => {
@@ -17,10 +34,76 @@ const AddCar = () => {
     setCarData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleDrop = (acceptedFiles) => {
+    setCarData((prev) => ({
+      ...prev,
+      images: [...prev.images, ...acceptedFiles],
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add form submission logic here
+
+    const currentDate = new Date().toISOString(); // Current date
+    const bookingStatus = "Pending"; // Default booking status
+
+    const formData = new FormData();
+    formData.append("model", carData.model);
+    formData.append("price", carData.price);
+    formData.append("availability", carData.availability);
+    formData.append("registrationNumber", carData.registrationNumber);
+    formData.append("features", carData.features);
+    formData.append("description", carData.description);
+    formData.append("location", carData.location);
+    formData.append("date", currentDate);
+    formData.append("bookingStatus", bookingStatus);
+    formData.append("userName", userDetails.name);
+    formData.append("userEmail", userDetails.email);
+
+    // Append images
+    carData.images.forEach((file) => {
+      formData.append("images", file);
+    });
+
+    axios
+      .post("http://localhost:3000/cars", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        if (res.data.insertedId) {
+          setCarData({
+            model: "",
+            price: "",
+            availability: "",
+            registrationNumber: "",
+            features: "",
+            description: "",
+            location: "",
+            bookingCount: 0,
+            images: [],
+          });
+          Swal.fire({
+            icon: "success",
+            title: "Login Successful!",
+            text: "Welcome Back to Car Deal!",
+            timer: 1500,
+            showConfirmButton: true,
+            confirmButtonColor: "#1ace53",
+          });
+        }
+        console.log("Response:", res.data);
+      })
+      .catch((err) => {
+        console.error("Error adding car:", err);
+      });
   };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: handleDrop,
+    accept: "image/*",
+  });
 
   return (
     <div className="max-w-3xl mx-auto bg-white p-6 shadow-md rounded-lg">
@@ -109,10 +192,29 @@ const AddCar = () => {
             required
           />
         </div>
-        <div className="border border-dashed border-gray-300 p-4 rounded-lg">
-          <input />
-          <p className="text-center text-gray-500">Drag & drop images here, or click to select files</p>
+        <div
+          {...getRootProps()}
+          className="border border-dashed border-gray-300 p-4 rounded-lg"
+        >
+          <input {...getInputProps()} />
+          <p className="text-center text-gray-500">
+            {isDragActive
+              ? "Drop the images here..."
+              : "Drag & drop images here, or click to select files"}
+          </p>
         </div>
+        {carData.images.length > 0 && (
+          <div className="grid grid-cols-3 gap-2 mt-2">
+            {carData.images.map((file, index) => (
+              <img
+                key={index}
+                src={URL.createObjectURL(file)}
+                alt="Preview"
+                className="w-full h-20 object-cover rounded-lg"
+              />
+            ))}
+          </div>
+        )}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
