@@ -37,7 +37,7 @@ function CarCard({ car }) {
             <FaCarSide className="text-blue-600" /> Seats Info
           </div>
           <div className="flex items-center gap-1">
-            <BsGear className="text-blue-600" /> Automatic (if applicable)
+            <BsGear className="text-blue-600" /> Automatic
           </div>
         </div>
         <div className="flex justify-between mt-2 text-gray-600 text-sm">
