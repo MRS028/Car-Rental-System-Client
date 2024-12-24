@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import logo from "../../../assets/cardeal.png";
 import { motion } from "framer-motion";
 import { LuLogOut } from "react-icons/lu";
-import { div } from "framer-motion/client";
+
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);

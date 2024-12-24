@@ -1,63 +1,89 @@
 import { FaCarSide } from "react-icons/fa";
 import { BsGear, BsFuelPump } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { RxDividerVertical } from "react-icons/rx";
 
-function CarCard({ car }) {
-  // Check if images array exists and has at least one item
+function CarCard({ car, viewMode }) {
   const carImage = car.images && car.images.length > 0 ? car.images[0] : null;
 
   return (
-    <div className="max-w-sm card h-full bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="relative">
+    <div
+      className={`card bg-white rounded-lg shadow-md overflow-hidden h-full ${
+        viewMode === "list" ? "flex flex-col lg:flex-row border p-2 justify-between" : "grid grid-cols-1"
+      }`}
+    >
+      {/* part-1(image) for card*/}
+      <div className={`${viewMode === "list" ? "lg:w-1/3" : "relative"}`}>
         {carImage ? (
           <img
             src={`data:${carImage.mimetype};base64,${carImage.data}`}
             alt={car.model}
-            className="w-full"
+            className={`w-full lg:h-[352px]  object-cover ${viewMode === "list" ? "rounded-lg" : "rounded-t-lg"}`}
           />
         ) : (
-          <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
             <span className="text-gray-500">No Image Available</span>
           </div>
         )}
-        <span className="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
+        <span className="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
           {new Date(car.date).toLocaleDateString()}
         </span>
       </div>
-      <div className="p-4">
-        <div className="flex items-center mb-2">
-          <span className="text-yellow-400 text-lg">★★★★★</span>
+
+      {/* part-2 for card */}
+      <div className={`p-4 card-body flex flex-col justify-between h-full`}>
+        {/* star and book now */}
+      
+        <div className="flex justify-between items-center mb-2 card-title">
+          <span className="text-yellow-400 text-2xl">★★★★★</span>
+          <Link
+            to={`/carDetails/${car._id}`}
+            className={`$ {
+              car.availability === "Available"
+                ? "text-white bg-green-500 btn hover:underline font-semibold text-sm hover:text-green-800"
+                : "font-semibold text-sm"
+            } py-2 rounded btn`}
+            disabled={car.availability !== "Available"}
+          >
+            {car.availability === "Available" ? "BOOK NOW" : "Unavailable"}
+          </Link>
         </div>
-        <h2 className="text-lg font-semibold">{car.model}</h2>
-        <p className="text-blue-600 font-bold text-xl">${car.price}.00</p>
-        <p className="text-gray-500 text-sm">/ Night</p>
-        {/* <p className="text-gray-600 text-sm mt-2">{car.description}</p> */}
+        {/* title and name */}
+        <div className="text-center">
+          <p className="text-2xl card-title font-semibold">{car.model}</p>
+          <p className="font-bold text-xl">
+            ${car.price}.00 <span className="text-gray-500 text-sm">/ Day</span>
+          </p>
+          <p className="text-xl card-title font-semibold">Location:{car.location}</p>
+
+        </div>
+
         <hr className="my-4" />
-        <div className="flex justify-between text-gray-600 text-sm">
-          <div className="flex items-center gap-1">
-            <FaCarSide className="text-blue-600" /> Seats Info
+
+        <div className="grid grid-cols-2 gap-2 text-gray-600 text-sm">
+          <div className="flex text-left gap-1">
+            <FaCarSide className="text-green-600" /> <p>Seats: {car.seats}</p>
           </div>
-          <div className="flex items-center gap-1">
-            <BsGear className="text-blue-600" /> Automatic
+          <div className="flex text-left gap-1">
+            <BsGear className="text-green-600" /> <p>Automatic</p>
           </div>
+          <div className="flex text-left gap-1">
+            <BsFuelPump className="text-green-600" /> <p>Fuel: Petrol</p>
+          </div>
+          <div className="flex text-left gap-1">
+            <BsFuelPump className="text-green-600" /> <p>Location: {car.location}</p>
+          </div>
+          {/* <div className="flex text-left gap-1">
+            <p>Features: {car.features}</p>
+          </div> */}
         </div>
-        <div className="flex justify-between mt-2 text-gray-600 text-sm">
-          <div className="flex items-center gap-1">
-            <BsFuelPump className="text-blue-600" /> Fuel Type Info
-          </div>
-          <div className="flex items-center gap-1">
-            Features: {car.features}
-          </div>
-        </div>
-        <button
-          className={`mt-4 w-full ${
-            car.availability === "Available"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-300 text-gray-800"
-          } py-2 rounded`}
-          disabled={car.availability !== "Available"}
+
+        <Link
+          to={`/carDetails/${car._id}`}
+          className="mt-4 w-full bg-green-500 text-white btn py-2 text-center"
         >
-          {car.availability === "Available" ? "BOOK NOW" : "Unavailable"}
-        </button>
+          Details
+        </Link>
       </div>
     </div>
   );

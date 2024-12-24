@@ -22,6 +22,7 @@ const UpdateCar = () => {
     availability: car.availability || "",
     registrationNumber: car.registrationNumber || "",
     features: car.features || "",
+    seats: car.seats || "",
     description: car.description || "",
     location: car.location || "",
     images: car.images || [],
@@ -190,6 +191,18 @@ const UpdateCar = () => {
               className="w-full border border-gray-300 p-2 rounded-lg"
             />
           </div>
+          <div>
+          <label className="block font-medium">Seats</label>
+          <input
+            type="number"
+            name="seats"
+            defaultValue={4}
+            placeholder="No. of Seats"
+            value={carData.seats}
+            onChange={handleChange}
+            className="w-full border border-gray-300 p-2 rounded-lg"
+          />
+        </div>
 
           {/* Description */}
           <div>

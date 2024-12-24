@@ -9,6 +9,7 @@ import {
 import { AuthContext } from "../../../../Provider/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddCar = () => {
   const { user } = useContext(AuthContext);
@@ -18,16 +19,18 @@ const AddCar = () => {
     availability: "",
     registrationNumber: "",
     features: "",
+    seats: "",
     description: "",
     location: "",
-    bookingCount: 0, // Default booking count
-    images: [], // For storing uploaded files
+    bookingCount: 0, 
+    images: [],
   });
 
   const [userDetails] = useState({
-    name: user?.displayName, // Replace with actual user data
+    name: user?.displayName, 
     email: user.email,
   });
+  const navigate =useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,8 +47,9 @@ const AddCar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const currentDate = new Date().toISOString(); // Current date
-    const bookingStatus = "Pending"; // Default booking status
+    const currentDate = new Date().toISOString(); 
+    const bookingStatus = "Pending"; 
+   
 
     const formData = new FormData();
     formData.append("model", carData.model);
@@ -53,10 +57,12 @@ const AddCar = () => {
     formData.append("availability", carData.availability);
     formData.append("registrationNumber", carData.registrationNumber);
     formData.append("features", carData.features);
+    formData.append("seats", carData.seats);
     formData.append("description", carData.description);
     formData.append("location", carData.location);
     formData.append("date", currentDate);
     formData.append("bookingStatus", bookingStatus);
+    formData.append("bookingCount", carData.bookingCount);
     formData.append("userName", userDetails.name);
     formData.append("userEmail", userDetails.email);
 
@@ -64,6 +70,7 @@ const AddCar = () => {
     carData.images.forEach((file) => {
       formData.append("images", file);
     });
+    console.log(carData)
 
     axios
       .post("http://localhost:3000/cars", formData, {
@@ -79,14 +86,17 @@ const AddCar = () => {
             availability: "",
             registrationNumber: "",
             features: "",
+             seats: '',
             description: "",
             location: "",
             bookingCount: 0,
             images: [],
           });
+          console.log(res.data.insertedId)
+          navigate('/myCar')
           Swal.fire({
             icon: "success",
-            title: "Login Successful!",
+            title: "Car Added Successfully!",
             text: "Welcome Back to Car Deal!",
             timer: 1500,
             showConfirmButton: true,
@@ -166,6 +176,18 @@ const AddCar = () => {
             name="features"
             placeholder="e.g., GPS, AC"
             value={carData.features}
+            onChange={handleChange}
+            className="w-full border border-gray-300 p-2 rounded-lg"
+          />
+        </div>
+        <div>
+          <label className="block font-medium">Seats</label>
+          <input
+            type="number"
+            name="seats"
+            defaultValue={4}
+            placeholder="No. of Seats"
+            value={carData.seats}
             onChange={handleChange}
             className="w-full border border-gray-300 p-2 rounded-lg"
           />
