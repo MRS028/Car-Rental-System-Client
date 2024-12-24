@@ -24,7 +24,21 @@ const TestimonialCard = () => {
       rating: 4,
       review:
         "The booking process was easy, and the car quality was excellent. Will definitely use again!"
-    }
+    },
+    {
+        name: "Abir Raihan",
+        profileImage: "https://i.ibb.co.com/NCw886L/image.png",
+        rating: 5,
+        review:
+          "Amazing service! The team was very professional and helpful. Highly recommended!"
+      },
+      {
+        name: "Rakib Bhai",
+        profileImage: "https://i.ibb.co.com/DkbmZBv/Rakib-bhai.jpg",
+        rating: 5,
+        review:
+          "I was very impressed by the service. The cars are in great condition and the process was seamless."
+      },
   ];
 
   return (

@@ -16,28 +16,28 @@ const Banner = () => {
       image: slide1,
       heading: "Drive Your Dreams Today!",
       buttonText: "View Available Cars",
-      link: "/available-cars",
+      link: "/availableCars",
     },
     {
       id: 2,
       image: slide2,
       heading: "Your Next Adventure Awaits!",
       buttonText: "Explore Our Fleet",
-      link: "/fleet",
+      link: "/availableCars",
     },
     {
       id: 3,
       image: slide3,
       heading: "Luxury Cars, Affordable Prices",
       buttonText: "Find Your Ride",
-      link: "/pricing",
+      link: "/availableCars",
     },
     {
       id: 4,
       image: slide4,
       heading: "Travel in Comfort and Style",
       buttonText: "Book Now",
-      link: "/booking",
+      link: "/availableCars",
     },
     {
       id: 5,
@@ -92,7 +92,7 @@ const Banner = () => {
               {carouselData[currentIndex].heading}
             </motion.h1>
             <motion.button
-              className="bg-blue-500 text-white px-6 py-3 md:px-10 md:py-4 rounded-lg font-semibold text-sm md:text-lg hover:bg-blue-600 transition"
+              className="bg-green-500 text-white px-6 py-3 md:px-10 md:py-4 rounded-lg font-semibold text-sm md:text-lg hover:bg-green-600 transition"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}

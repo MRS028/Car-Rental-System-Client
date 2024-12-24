@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible, AiOutlineMail } from "react-icons/ai";
 import Lottie from "lottie-react";
 import loginAnimation from '../../../assets/LottieFiles/RegistrationLottie.json'; // Make sure you have this animation file
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 import SocialLogin from "./SocialLogin";
 import { AuthContext } from "../../../Provider/AuthProvider";
@@ -13,10 +13,11 @@ const LoginPage = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {userLogin} = useContext(AuthContext);
 
+  const location = useLocation();
 
 
 
@@ -30,7 +31,7 @@ const LoginPage = () => {
   
       userLogin(email,password)
       .then((result) => {
-        navigate('/');
+        navigate(location?.state ? location.state : "/");
         Swal.fire({
           icon: 'success',
           title: 'Login Successful!',
