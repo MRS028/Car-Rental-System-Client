@@ -16,9 +16,9 @@ const Footer = () => {
                      </div>
                      <div>
                      <p class="relative text-3xl font-bold">
-                       Car Dea
+                       Rent A Ca
                        <span class="relative inline-block">
-                         l
+                         r
                          <span class="absolute top-[0.25rem] -mx-1 right-[-1rem] text-xs text-red-500">
                            BD
                          </span>

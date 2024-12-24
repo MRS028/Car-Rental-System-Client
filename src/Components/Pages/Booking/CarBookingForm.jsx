@@ -122,9 +122,9 @@ const CarBookingForm = () => {
 
         {/* Pick-up Date */}
         <div>
-          <label className="block mb-2 font-medium">Pick-up Date & Time</label>
+          <label className="block mb-2 font-medium">Pick-up Date</label>
           <input
-            type="datetime-local"
+            type="date"
             name="pickUpDate"
             className="w-full p-3 border border-gray-300 rounded-lg"
             required
@@ -152,9 +152,9 @@ const CarBookingForm = () => {
 
         {/* Drop-off Date */}
         <div>
-          <label className="block mb-2 font-medium">Drop-off Date & Time</label>
+          <label className="block mb-2 font-medium">Drop-off Date</label>
           <input
-            type="datetime-local"
+            type="date"
             name="dropOffDate"
             className="w-full p-3 border border-gray-300 rounded-lg"
             required
@@ -169,11 +169,15 @@ const CarBookingForm = () => {
             className="w-full p-3 border border-gray-300 rounded-lg"
             required
           >
-            <option value="SUV">Car Type</option>
-            <option value="SUV">SUV</option>
-            <option value="Sedan">Sedan</option>
-            <option value="Truck">Truck</option>
-            <option value="Hatchback">Hatchback</option>
+            <option>Car Type</option>
+            <option>Noah</option>
+            <option>Sedan</option>
+            <option>Van</option>
+            <option>Hatchback</option>
+            <option>Haice</option>
+            <option>Royal</option>
+            <option>Cavard</option>
+            <option>Isuzuki</option>
           </select>
         </div>
       </div>
@@ -181,7 +185,7 @@ const CarBookingForm = () => {
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600"
+        className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-700"
       >
         Book Now
       </button>

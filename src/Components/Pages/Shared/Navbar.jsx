@@ -127,9 +127,9 @@ const Navbar = () => {
         <div className="flex btn-ghost hover:bg-transparent  text-base-100 text-2xl">
           <img src={logo} className="w-16 hidden lg:flex h-10" alt="" />
           <p class="relative text-2xl lg:text-3xl font-bold">
-            Car Dea
+            Rent A Ca
             <span class="relative inline-block">
-              l
+              r
               <div className="tooltip tooltip-bottom  text-base-content font-semibold" data-tip='Car Deal Home'>
               <span class="absolute top-[-2rem] -mx-1 right-[-1rem] text-xs text-red-500">
                 BD

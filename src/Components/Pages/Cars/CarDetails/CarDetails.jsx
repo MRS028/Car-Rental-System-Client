@@ -7,7 +7,7 @@ const CarDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const carDetail = useLoaderData();
-  console.log(carDetail);
+  // console.log(carDetail);
   const carImage =
     carDetail.images && carDetail.images.length > 0
       ? carDetail.images[0]
@@ -222,9 +222,10 @@ const CarDetails = () => {
             <td className="border text-center border-gray-300 px-4 py-2 text-gray-900">
             {carDetail.availability}
             </td>
-            <td className="border border-gray-300 px-4 py-2 font-bold">
-            <Link
-            to={`/carBooking/${carDetail._id}`}
+            <td className="border items-center border-gray-300 px-4 py-2 font-bold">
+            <Link to={`/carBooking/${carDetail._id}`} className="flex justify-center">
+            <button
+            
             className={`$ {
               car.availability === "Available"
                 ? "text-white bg-green-500 btn hover:underline font-semibold text-sm hover:text-green-800"
@@ -233,7 +234,9 @@ const CarDetails = () => {
             disabled={carDetail.availability !== "Available"}
           >
             {carDetail.availability === "Available" ? "BOOK NOW" : "Unavailable"}
-          </Link>
+          </button>
+            
+            </Link>
             </td>
           </tr>
         </tbody>
