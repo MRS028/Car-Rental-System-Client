@@ -1,6 +1,6 @@
 import React from "react";
 import { FaHeart, FaShareAlt, FaCheckCircle } from "react-icons/fa";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import CarReviews from "../CarReview/CarReviews";
 
 const CarDetails = () => {
@@ -16,7 +16,7 @@ const CarDetails = () => {
   const features = carDetail.features;
   const featured = features.split(",").map((feature) => feature.trim());
   // const featureObj = fea
-  console.log(featured);
+  // console.log(featured);
 
   return (
     <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
@@ -223,18 +223,17 @@ const CarDetails = () => {
             {carDetail.availability}
             </td>
             <td className="border border-gray-300 px-4 py-2 font-bold">
-              <button
-                className={`mt-4 w-full ${
-                  carDetail.availability === "Available"
-                    ? "bg-green-600 text-white"
-                    : "bg-gray-300 text-red-500"
-                } py-2 rounded`}
-                disabled={carDetail.availability !== "Available"}
-              >
-                {carDetail.availability === "Available"
-                  ? "BOOK NOW"
-                  : "Unavailable"}
-              </button>
+            <Link
+            to={`/carBooking/${carDetail._id}`}
+            className={`$ {
+              car.availability === "Available"
+                ? "text-white bg-green-500 btn hover:underline font-semibold text-sm hover:text-green-800"
+                : "font-semibold text-sm"
+            } py-2 rounded btn`}
+            disabled={carDetail.availability !== "Available"}
+          >
+            {carDetail.availability === "Available" ? "BOOK NOW" : "Unavailable"}
+          </Link>
             </td>
           </tr>
         </tbody>

@@ -171,6 +171,7 @@ const UpdateCar = () => {
             <input
               type="text"
               name="registrationNumber"
+              readOnly
               placeholder="Vehicle Registration Number"
               value={carData.registrationNumber}
               onChange={handleChange}

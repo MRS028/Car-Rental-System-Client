@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CarCard from "./CarCard";
 import Loading from "../../Loading/Loading";
+import { FaTh, FaList } from "react-icons/fa";
 
 const AvailableCars = () => {
   const [cars, setCars] = useState([]);
@@ -50,7 +51,7 @@ const AvailableCars = () => {
 
       {/* Search Input */}
       <div className="w-11/12 text-left  mx-auto my-4">
-      <label className="block mx-2 font-medium">Search Your Car</label>
+        <label className="block mx-2 font-medium">Search Your Car</label>
         <input
           type="text"
           className="w-full p-3 border border-gray-300 rounded-lg"
@@ -62,14 +63,7 @@ const AvailableCars = () => {
 
       {/* View Toggle and Sort Options */}
       <div className="flex justify-between items-center w-11/12 mx-auto mb-4">
-        <button
-          className="bg-green-500 text-white px-4 py-2 rounded-lg"
-          onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-        >
-          Toggle to {viewMode === "grid" ? "List" : "Grid"} View
-        </button>
-
-        <select
+      <select
           className="border border-gray-300 px-4 py-2 rounded-lg"
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
@@ -77,6 +71,20 @@ const AvailableCars = () => {
           <option value="date">Sort by Date</option>
           <option value="price">Sort by Price</option>
         </select>
+        <button
+          className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center"
+          onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
+        >
+          {/* Displaying icons based on viewMode */}
+          {viewMode === "grid" ? (
+            <FaList className="mr-2" /> // List icon for grid view
+          ) : (
+            <FaTh className="mr-2" /> // Grid icon for list view
+          )}
+          Toggle to {viewMode === "grid" ? "List" : "Grid"} View
+        </button>
+
+        
       </div>
 
       {/* Display Cars */}

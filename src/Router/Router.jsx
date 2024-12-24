@@ -15,6 +15,7 @@ import Blogs from "../Components/Pages/Blogs/Blogs";
 import PrivateRoute from "./PrivateRoute";
 import UpdateCar from "../Components/Pages/Cars/UpdateCar/UpdateCar";
 import CarDetails from "../Components/Pages/Cars/CarDetails/CarDetails";
+import CarBookingForm from "../Components/Pages/Booking/CarBookingForm";
 
 const Router = createBrowserRouter([
   {
@@ -44,10 +45,18 @@ const Router = createBrowserRouter([
       {
         path: "/MyBookings",
         element: <PrivateRoute><MyBookings></MyBookings></PrivateRoute>,
-      },
+      },//http://localhost:3000/myBookings/676ad286f5a06bb26e4b8181
       {
         path: "/blogs",
         element: <Blogs></Blogs>,
+      },
+      {
+        path: "/carBooking/:id",
+        element: <PrivateRoute><CarBookingForm></CarBookingForm></PrivateRoute>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/cars/${params.id}`).then((res) =>
+            res.json()
+          ),
       },
       {
         path: "/updateCar/:id",

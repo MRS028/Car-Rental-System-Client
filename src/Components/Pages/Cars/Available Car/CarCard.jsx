@@ -2,6 +2,7 @@ import { FaCarSide } from "react-icons/fa";
 import { BsGear, BsFuelPump } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { RxDividerVertical } from "react-icons/rx";
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 function CarCard({ car, viewMode }) {
   const carImage = car.images && car.images.length > 0 ? car.images[0] : null;
@@ -37,7 +38,7 @@ function CarCard({ car, viewMode }) {
         <div className="flex justify-between items-center mb-2 card-title">
           <span className="text-yellow-400 text-2xl">★★★★★</span>
           <Link
-            to={`/carDetails/${car._id}`}
+            to={`/carBooking/${car._id}`}
             className={`$ {
               car.availability === "Available"
                 ? "text-white bg-green-500 btn hover:underline font-semibold text-sm hover:text-green-800"
@@ -71,7 +72,7 @@ function CarCard({ car, viewMode }) {
             <BsFuelPump className="text-green-600" /> <p>Fuel: Petrol</p>
           </div>
           <div className="flex text-left gap-1">
-            <BsFuelPump className="text-green-600" /> <p>Location: {car.location}</p>
+          <FaMapMarkerAlt className="text-green-500 text-xl" /> <p>Location: {car.location}</p>
           </div>
           {/* <div className="flex text-left gap-1">
             <p>Features: {car.features}</p>

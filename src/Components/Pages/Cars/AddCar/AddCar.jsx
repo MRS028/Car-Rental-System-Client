@@ -92,12 +92,12 @@ const AddCar = () => {
             bookingCount: 0,
             images: [],
           });
-          console.log(res.data.insertedId)
+          // console.log(res.data.insertedId)
           navigate('/myCar')
           Swal.fire({
             icon: "success",
-            title: "Car Added Successfully!",
-            text: "Welcome Back to Car Deal!",
+            title: "Thank You!",
+            text: "You have Added a Car Successfully!",
             timer: 1500,
             showConfirmButton: true,
             confirmButtonColor: "#1ace53",
