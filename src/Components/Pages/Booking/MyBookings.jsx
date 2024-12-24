@@ -65,7 +65,7 @@ const MyBookings = () => {
         if (!startDate || !endDate) {
           Swal.showValidationMessage("Please select both start and end date");
         } else {
-          // Proceed with booking modification after confirmation
+       
           return { startDate, endDate };
         }
       },
@@ -92,7 +92,7 @@ const MyBookings = () => {
             axios
               .get(`http://localhost:3000/myBookings?email=${userEmail}`)
               .then((res) => {
-                setBookings(res.data); // Update state with new data
+                setBookings(res.data); 
               })
               .catch((err) => {
                 console.error("Error fetching updated bookings:", err);

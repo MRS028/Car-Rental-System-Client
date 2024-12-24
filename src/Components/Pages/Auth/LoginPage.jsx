@@ -62,7 +62,7 @@ const LoginPage = () => {
           <Lottie animationData={loginAnimation} loop={true} />
         </div>
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 border">
-      <h2 className="text-3xl font-bold text-center text-blue-500 mb-6">
+      <h2 className="text-3xl font-bold text-center text-green-500 mb-6">
           Login
         </h2>
   
@@ -112,13 +112,13 @@ const LoginPage = () => {
             </div>
           </div>
           <div className="text-right m-2">
-            <Link to='/auth/forgetpassword'><p className="text-blue-500 hover:underline"> Forget password?</p></Link>
+            <Link to='/auth/forgetpassword'><p className="text-green-500 hover:underline"> Forget password?</p></Link>
           </div>
 
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+            className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300"
           >
             Login
           </button>
@@ -130,7 +130,7 @@ const LoginPage = () => {
 
       <p className="text-center text-gray-600 mt-4">
           Don't have an account?{" "}
-          <Link to="/auth/register" className="text-blue-500 hover:underline">
+          <Link to="/auth/register" className="text-green-500 hover:underline">
             Register here
           </Link>
         </p>

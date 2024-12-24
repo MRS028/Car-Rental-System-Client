@@ -117,7 +117,7 @@ const MyCars = () => {
                 <th className="px-6 py-3 text-sm font-medium">Daily Rental Price</th>
                 <th className="px-6 py-3 text-sm font-medium">Availability</th>
                 <th className="px-6 py-3 text-sm font-medium">Date Added</th>
-                <th className="px-6 py-3 text-sm font-medium">Actions</th>
+                <th className="px-6 py-3 text-sm font-medium text-left">Actions</th>
               </tr>
             </thead>
             <tbody>
