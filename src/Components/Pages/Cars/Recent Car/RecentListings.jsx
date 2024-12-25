@@ -11,16 +11,16 @@ const RecentListings = () => {
   const axiosSecure = useAxios();
 
   useEffect(() => {
-    // axios.get("http://localhost:3000/allCars").then((res) => {
-    //   const sortedCars = res.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by recent date
-    //   setCars(sortedCars);
-    //   setLoading(false); });
-
-      axiosSecure.get(`allCars`).then(res=>{
-        const sortedCars = res.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by recent date
+    axios.get("https://car-rental-system-server-five.vercel.app/allCars").then((res) => {
+      const sortedCars = res.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by recent date
       setCars(sortedCars);
-      setLoading(false);
-      })
+      setLoading(false); });
+
+      // axiosSecure.get(`allCars`).then(res=>{
+      //   const sortedCars = res.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by recent date
+      // setCars(sortedCars);
+      // setLoading(false);
+      // })
 
    
   }, []);

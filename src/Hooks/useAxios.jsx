@@ -4,7 +4,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://car-rental-system-server-five.vercel.app",
   withCredentials: true,
 });
 
@@ -20,15 +20,14 @@ const useAxios = () => {
       (error) => {
         console.log("error caugh in interceptor", error);
         logOut()
-            .then(() => {
-              console.log("Logged Out User");
-              navigate("/auth/login");
-            })
-            .catch((err) => console.log(err));
+          .then(() => {
+            console.log("Logged Out User");
+            navigate("/auth/login");
+          })
+          .catch((err) => console.log(err));
 
-        if (error.status === 401 || error.status === 403) {
+        if (error.response?.status === 401 || error.response?.status === 403) {
           console.log("Logged Out The User.");
-          
         }
         return Promise.reject(error);
       }

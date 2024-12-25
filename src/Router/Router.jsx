@@ -45,7 +45,7 @@ const Router = createBrowserRouter([
       {
         path: "/MyBookings",
         element: <PrivateRoute><MyBookings></MyBookings></PrivateRoute>,
-      },//http://localhost:3000/myBookings/676ad286f5a06bb26e4b8181
+      },//https://car-rental-system-server-five.vercel.app/myBookings/676ad286f5a06bb26e4b8181
       {
         path: "/blogs",
         element: <Blogs></Blogs>,
@@ -54,7 +54,7 @@ const Router = createBrowserRouter([
         path: "/carBooking/:id",
         element: <PrivateRoute><CarBookingForm></CarBookingForm></PrivateRoute>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/cars/${params.id}`).then((res) =>
+          fetch(`https://car-rental-system-server-five.vercel.app/cars/${params.id}`).then((res) =>
             res.json()
           ),
       },
@@ -66,7 +66,7 @@ const Router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/cars/${params.id}`).then((res) =>
+          fetch(`https://car-rental-system-server-five.vercel.app/cars/${params.id}`).then((res) =>
             res.json()
           ),
       },
@@ -78,7 +78,7 @@ const Router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/cars/${params.id}`).then((res) =>
+          fetch(`https://car-rental-system-server-five.vercel.app/cars/${params.id}`).then((res) =>
             res.json()
           ),
       },

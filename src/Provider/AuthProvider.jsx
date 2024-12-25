@@ -64,21 +64,21 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log("state captured", currentUser);
+      // console.log("state captured", currentUser);
 
       if (currentUser?.email) {
         const user = { email: currentUser.email };
         axios
-          .post("http://localhost:3000/jwt", user, { withCredentials: true })
+          .post("https://car-rental-system-server-five.vercel.app/jwt", user, { withCredentials: true })
           .then((res) => {
-            console.log("Logged in", res.data);
+            // console.log("Logged in", res.data);
             setLoading(false);
           });
       } else {
         axios
-          .post("http://localhost:3000/logout", {}, { withCredentials: true })
+          .post("https://car-rental-system-server-five.vercel.app/logout", {}, { withCredentials: true })
           .then((res) => {
-            console.log("Logged Out", res.data);
+            // console.log("Logged Out", res.data);
             setLoading(false);
           });
       }

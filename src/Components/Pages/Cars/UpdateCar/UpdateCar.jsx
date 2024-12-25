@@ -80,7 +80,7 @@ const UpdateCar = () => {
 
     // Axios PUT
     axios
-      .put(`http://localhost:3000/cars/${id}`, formData, {
+      .put(`https://car-rental-system-server-five.vercel.app/cars/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

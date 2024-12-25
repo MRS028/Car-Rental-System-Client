@@ -73,7 +73,7 @@ const AddCar = () => {
     console.log(carData)
 
     axios
-      .post("http://localhost:3000/cars", formData, {
+      .post("https://car-rental-system-server-five.vercel.app/cars", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

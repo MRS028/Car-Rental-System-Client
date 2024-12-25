@@ -16,15 +16,15 @@ const AvailableCars = () => {
   const axiosSecure = useAxios()
 
   useEffect(() => {
-    // axios.get("http://localhost:3000/allCars").then((res) => {
-    //   setCars(res.data);
-    //   setLoading(false);
-    // });
-    
-    axiosSecure.get(`/allCars`).then(res=>{
+    axios.get("https://car-rental-system-server-five.vercel.app/allCars").then((res) => {
       setCars(res.data);
       setLoading(false);
-    })
+    });
+
+    // axiosSecure.get(`/myBookings?email=${userEmail}`).then(res=>{
+    //   setCars(res.data);
+    //   setLoading(false);
+    // })
 
 
 
@@ -100,7 +100,7 @@ const AvailableCars = () => {
           ) : (
             <FaTh className="mr-2" />
           )}
-          Toggle to {viewMode === "grid" ? "List" : "Grid"} View
+         {viewMode === "grid" ? "List" : "Grid"}
         </button>
 
         

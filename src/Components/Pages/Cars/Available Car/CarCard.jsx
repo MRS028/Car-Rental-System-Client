@@ -16,11 +16,11 @@ function CarCard({ car, viewMode }) {
       {/* part-1(image) for card*/}
       <div className={`w-full mx-auto   ${viewMode === "list" ? "lg:w-1/3" : "relative"}`}>
         {carImage ? (
-          <figure className="h-64 w-full overflow-hidden rounded-t-lg bg-gray-200">
+          <figure className={` ${viewMode === "grid" ? 'lg:h-64' : 'lg:h-full'}   md:h-[150px] w-full overflow-hidden rounded-t-lg bg-gray-200`}>
             <img
             src={`data:${carImage.mimetype};base64,${carImage.data}`}
             alt={car.model}
-            className={`w-full  object-cover ${viewMode === "list" ? "rounded-lg" : "rounded-t-lg"}`}
+            className={`w-full h-full   object-cover ${viewMode === "list" ? "rounded-lg" : "rounded-t-lg"}`}
           />
           </figure>
         ) : (

@@ -22,7 +22,7 @@ const CarBookingForm = () => {
     bookingCar.bookingStatus = "Confirmed";
 
     axios
-      .post("http://localhost:3000/bookingCar", bookingCar, {
+      .post("https://car-rental-system-server-five.vercel.app/bookingCar", bookingCar, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -48,7 +48,7 @@ const CarBookingForm = () => {
   const handleCount = (carId) => {
     // console.log(car._id);
     axios
-      .put(`http://localhost:3000/increment/${carId}`, { carId })
+      .put(`https://car-rental-system-server-five.vercel.app/increment/${carId}`, { carId })
       .then((response) => {
         // console.log("Response Data:", response.data);
         if (response.data && response.data.bookingCount !== undefined) {
@@ -76,6 +76,7 @@ const CarBookingForm = () => {
             type="text"
             name="name"
             defaultValue={userName}
+            readOnly
             placeholder="Enter your name"
             className="w-full p-3 border border-gray-300 rounded-lg"
             required
@@ -101,6 +102,7 @@ const CarBookingForm = () => {
             type="email"
             name="email"
             defaultValue={userEmail}
+            readOnly
             placeholder="Enter your email"
             className="w-full p-3 border border-gray-300 rounded-lg"
             required

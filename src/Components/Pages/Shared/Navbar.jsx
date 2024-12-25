@@ -130,7 +130,7 @@ const Navbar = () => {
             Rent A Ca
             <span class="relative inline-block">
               r
-              <div className="tooltip tooltip-bottom  text-base-content font-semibold" data-tip='Car Deal Home'>
+              <div className="tooltip tooltip-bottom  text-base-content font-semibold" data-tip='Rent A Car Home'>
               <span class="absolute top-[-2rem] -mx-1 right-[-1rem] text-xs text-red-500">
                 BD
               </span>

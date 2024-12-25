@@ -85,22 +85,25 @@ const MyBookings = () => {
         const { startDate, endDate } = result.value;
 
         axios
-          .put(`http://localhost:3000/updateBooking/${BookingID}`, {
-            bookingStatus: "Confirmed",
-            pickUpDate: startDate,
-            dropOffDate: endDate,
-          })
+          .put(
+            `https://car-rental-system-server-five.vercel.app/updateBooking/${BookingID}`,
+            {
+              bookingStatus: "Confirmed",
+              pickUpDate: startDate,
+              dropOffDate: endDate,
+            }
+          )
           .then((response) => {
-            Swal.fire({
-              title: "Booking Updated",
-              text: "The booking dates have been updated successfully.",
-              icon: "success",
-              timer: 1500,
-            });
-            axios
-              .get(`http://localhost:3000/myBookings?email=${userEmail}`)
+            axiosSecure
+              .get(`/myBookings?email=${userEmail}`)
               .then((res) => {
                 setBookings(res.data);
+                Swal.fire({
+                  title: "Booking Updated",
+                  text: "The booking dates have been updated successfully.",
+                  icon: "success",
+                  timer: 1500,
+                });
               })
               .catch((err) => {
                 console.error("Error fetching updated bookings:", err);
@@ -145,23 +148,25 @@ const MyBookings = () => {
     }).then((res) => {
       if (res.isConfirmed) {
         axios
-          .put(`http://localhost:3000/updateBooking/${BookingID}`, {
-            bookingStatus: "Canceled",
-            // pickUpDate: startDate,
-            // dropOffDate: endDate,
-          })
+          .put(
+            `https://car-rental-system-server-five.vercel.app/updateBooking/${BookingID}`,
+            {
+              bookingStatus: "Canceled",
+              // pickUpDate: startDate,
+              // dropOffDate: endDate,
+            }
+          )
           .then((response) => {
-            Swal.fire({
-              title: "Booking Cancelled!",
-              text: "The booking status has been updated successfully.",
-              icon: "success",
-              timer: 1500,
-            });
-
-            axios
-              .get(`http://localhost:3000/myBookings?email=${userEmail}`)
+            axiosSecure
+              .get(`/myBookings?email=${userEmail}`)
               .then((res) => {
                 setBookings(res.data);
+                Swal.fire({
+                  title: "Booking Cancelled!",
+                  text: "The booking status has been updated successfully.",
+                  icon: "success",
+                  timer: 1500,
+                });
               })
               .catch((err) => {
                 console.error("Error fetching updated bookings:", err);

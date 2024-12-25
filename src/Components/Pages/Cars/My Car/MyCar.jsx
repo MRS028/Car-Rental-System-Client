@@ -31,7 +31,7 @@ const MyCars = () => {
         setLoading(false);
       });
   }, [userEmail]);
-  console.log(cars)
+  // console.log(cars)
 
   //sorting
 
@@ -70,7 +70,7 @@ const MyCars = () => {
     }).then((res) => {
       if (res.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/cars/${carId}`)
+          .delete(`https://car-rental-system-server-five.vercel.app/cars/${carId}`)
           .then((res) => {
             setCars((prevCars) => prevCars.filter((car) => car._id !== carId));
             Swal.fire("Deleted!", "The car has been deleted.", "success");
