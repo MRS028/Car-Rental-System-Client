@@ -13,9 +13,9 @@ const SocialLogin = () => {
     signInWithGoogle()
       .then((result) => {
         // console.log(result?.user?.name);
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
         Swal.fire({
-          title: "Registration Successful!",
+          title: "SigIn/SignUp Successful!",
           text: "Welcome to Car Deal!",
           icon: "success",
           showConfirmButton: true,

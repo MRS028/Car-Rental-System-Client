@@ -7,6 +7,7 @@ import NoCars from "../Cars/My Car/NoCar";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import PriceChart from "./PriceChart";
+import useAxios from "../../../Hooks/useAxios";
 
 const MyBookings = () => {
   const { user } = useContext(AuthContext);
@@ -15,10 +16,11 @@ const MyBookings = () => {
   const navigate = useNavigate();
 
   const userEmail = user?.email;
+  const axiosSecure = useAxios();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/myBookings?email=${userEmail}`)
+    axiosSecure
+      .get(`/myBookings?email=${userEmail}`)
       .then((res) => {
         setBookings(res.data);
         setLoading(false);
@@ -39,19 +41,21 @@ const MyBookings = () => {
 
   // Handle Modify
   const handleModify = (BookingID) => {
-    const preBookingStatus =bookings.find((booking) => booking._id === BookingID);
+    const preBookingStatus = bookings.find(
+      (booking) => booking._id === BookingID
+    );
 
-      //  console.log(preBookingStatus.bookingStatus);
+    //  console.log(preBookingStatus.bookingStatus);
 
-       if(preBookingStatus.bookingStatus === 'Canceled'){
-        Swal.fire({
-          title: "Already Canceled!",
-          text: "You have already Canceled it!",
-          icon: "info",
-          timer: 1500,
-        });
-        return;
-       }
+    if (preBookingStatus.bookingStatus === "Canceled") {
+      Swal.fire({
+        title: "Already Canceled!",
+        text: "You have already Canceled it!",
+        icon: "info",
+        timer: 1500,
+      });
+      return;
+    }
     Swal.fire({
       title: "Modify Booking Date",
       html: `
@@ -70,7 +74,6 @@ const MyBookings = () => {
         if (!startDate || !endDate) {
           Swal.showValidationMessage("Please select both start and end date");
         } else {
-       
           return { startDate, endDate };
         }
       },
@@ -80,10 +83,10 @@ const MyBookings = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const { startDate, endDate } = result.value;
-        
+
         axios
           .put(`http://localhost:3000/updateBooking/${BookingID}`, {
-            bookingStatus: 'Confirmed',
+            bookingStatus: "Confirmed",
             pickUpDate: startDate,
             dropOffDate: endDate,
           })
@@ -97,7 +100,7 @@ const MyBookings = () => {
             axios
               .get(`http://localhost:3000/myBookings?email=${userEmail}`)
               .then((res) => {
-                setBookings(res.data); 
+                setBookings(res.data);
               })
               .catch((err) => {
                 console.error("Error fetching updated bookings:", err);
@@ -117,17 +120,19 @@ const MyBookings = () => {
 
   //handle Delete
   const handelBookingCancel = (BookingID) => {
-    const bookingToCancel = bookings.find((booking) => booking._id === BookingID);
+    const bookingToCancel = bookings.find(
+      (booking) => booking._id === BookingID
+    );
     // console.log(bookingToCancel.bookingStatus)
-  if (bookingToCancel.bookingStatus === "Canceled") {
-    Swal.fire({
-      title: "Already Canceled",
-      text: "This booking has already been canceled.",
-      icon: "info",
-      timer: 1500,
-    });
-    return; 
-  }
+    if (bookingToCancel.bookingStatus === "Canceled") {
+      Swal.fire({
+        title: "Already Canceled",
+        text: "This booking has already been canceled.",
+        icon: "info",
+        timer: 1500,
+      });
+      return;
+    }
 
     Swal.fire({
       title: "Are you sure?",
@@ -156,7 +161,7 @@ const MyBookings = () => {
             axios
               .get(`http://localhost:3000/myBookings?email=${userEmail}`)
               .then((res) => {
-                setBookings(res.data); 
+                setBookings(res.data);
               })
               .catch((err) => {
                 console.error("Error fetching updated bookings:", err);
@@ -171,12 +176,7 @@ const MyBookings = () => {
             });
           });
       }
-    
     });
-    
-
-
-    
   };
 
   return (
@@ -189,7 +189,6 @@ const MyBookings = () => {
             My Bookings
           </h2>
 
-        
           <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr className="bg-gray-100">
@@ -251,8 +250,8 @@ const MyBookings = () => {
                           day: "2-digit",
                           month: "2-digit",
                           year: "numeric",
-                          // hour: "2-digit",
-                          // minute: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
                         })
                       : "N/A"}
                   </td>
@@ -262,8 +261,8 @@ const MyBookings = () => {
                           day: "2-digit",
                           month: "2-digit",
                           year: "numeric",
-                          //hour: "2-digit",
-                          //minute: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
                         })
                       : "N/A"}
                   </td>

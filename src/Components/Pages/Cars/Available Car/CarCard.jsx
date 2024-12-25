@@ -16,11 +16,13 @@ function CarCard({ car, viewMode }) {
       {/* part-1(image) for card*/}
       <div className={`w-full mx-auto   ${viewMode === "list" ? "lg:w-1/3" : "relative"}`}>
         {carImage ? (
-          <img
+          <figure className="h-64 w-full overflow-hidden rounded-t-lg bg-gray-200">
+            <img
             src={`data:${carImage.mimetype};base64,${carImage.data}`}
             alt={car.model}
             className={`w-full  object-cover ${viewMode === "list" ? "rounded-lg" : "rounded-t-lg"}`}
           />
+          </figure>
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">
             <span className="text-gray-500">No Image Available</span>
@@ -56,7 +58,7 @@ function CarCard({ car, viewMode }) {
             ${car.price}.00 <span className="text-gray-500 text-sm">/ Day</span>
           </p>
           <Link
-            to={car.availability === "Available" ? `/carBooking/${car._id}` : " "}
+            to={car.availability === "Available" ? `/carBooking/${car._id}` : "/availableCars"}
             className={` ${
               car.availability === "Available"
                 ? "text-white bg-green-500 hover:underline p-2 font-semibold text-sm hover:bg-green-600"
@@ -66,6 +68,7 @@ function CarCard({ car, viewMode }) {
           >
             {car.availability === "Available" ? "BOOK NOW" : "Unavailable"}
           </Link>
+          
         </div>
 
         <div className="my-4 divider" />

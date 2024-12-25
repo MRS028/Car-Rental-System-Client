@@ -46,13 +46,13 @@ const CarBookingForm = () => {
       });
   };
   const handleCount = (carId) => {
-    console.log(car._id);
+    // console.log(car._id);
     axios
       .put(`http://localhost:3000/increment/${carId}`, { carId })
       .then((response) => {
-        console.log("Response Data:", response.data);
+        // console.log("Response Data:", response.data);
         if (response.data && response.data.bookingCount !== undefined) {
-          console.log("Booking Count Updated:", response.data.bookingCount);
+          // console.log("Booking Count Updated:", response.data.bookingCount);
         } else {
           console.error("Booking count not found in response!");
         }

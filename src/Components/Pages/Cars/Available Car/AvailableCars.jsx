@@ -3,6 +3,7 @@ import axios from "axios";
 import CarCard from "./CarCard";
 import Loading from "../../Loading/Loading";
 import { FaTh, FaList } from "react-icons/fa";
+import useAxios from "../../../../Hooks/useAxios";
 
 const AvailableCars = () => {
   const [cars, setCars] = useState([]);
@@ -11,11 +12,24 @@ const AvailableCars = () => {
   const [viewMode, setViewMode] = useState("grid");
   const [sortOption, setSortOption] = useState("date");
 
+
+  const axiosSecure = useAxios()
+
   useEffect(() => {
-    axios.get("http://localhost:3000/allCars").then((res) => {
+    // axios.get("http://localhost:3000/allCars").then((res) => {
+    //   setCars(res.data);
+    //   setLoading(false);
+    // });
+    
+    axiosSecure.get(`/allCars`).then(res=>{
       setCars(res.data);
       setLoading(false);
-    });
+    })
+
+
+
+
+
   }, []);
 
   // Filter and search ft
@@ -34,8 +48,10 @@ const AvailableCars = () => {
 
   // Sort cars based on selected sort option
   const sortedCars = [...filteredCars].sort((a, b) => {
-    if (sortOption === "price") return a.price - b.price;
-    if (sortOption === "date") return new Date(b.date) - new Date(a.date);
+    if (sortOption === "price-lowest-first") return a.price - b.price; 
+    if (sortOption === "price-highest-first") return b.price - a.price; 
+    if (sortOption === "date-newest-first") return new Date(b.date) - new Date(a.date);
+    if (sortOption === "date-oldest-first") return new Date(a.date) - new Date(b.date);
     return 0;
   });
 
@@ -64,12 +80,15 @@ const AvailableCars = () => {
       {/* View Toggle and Sort Options */}
       <div className="flex justify-between items-center w-11/12 mx-auto mb-4">
       <select
-          className="border border-gray-300 px-4 py-2 rounded-lg"
+          className="border border-gray-300 font-bold text-green-600 px-4 py-2 rounded-lg"
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
         >
-          <option value="date">Sort by Date</option>
-          <option value="price">Sort by Price</option>
+          <option >Sort Car</option>
+          <option value="price-lowest-first">Price Lowest First</option>
+          <option value="price-highest-first">price Highest First</option>
+          <option value="date-newest-first">Date Newest First</option>
+          <option value="date-oldest-first">Date Oldest First</option>
         </select>
         <button
           className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center"
@@ -77,9 +96,9 @@ const AvailableCars = () => {
         >
           {/* Displaying icons based on viewMode */}
           {viewMode === "grid" ? (
-            <FaList className="mr-2" /> // List icon for grid view
+            <FaList className="mr-2" /> 
           ) : (
-            <FaTh className="mr-2" /> // Grid icon for list view
+            <FaTh className="mr-2" />
           )}
           Toggle to {viewMode === "grid" ? "List" : "Grid"} View
         </button>

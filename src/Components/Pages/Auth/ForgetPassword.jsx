@@ -16,7 +16,7 @@ const ForgetPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Password reset for:", email);
+    // console.log("Password reset for:", email);
     // Here, you would typically send a reset password email or an API request.
   };
 

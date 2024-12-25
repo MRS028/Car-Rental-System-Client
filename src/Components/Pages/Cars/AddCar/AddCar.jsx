@@ -103,7 +103,7 @@ const AddCar = () => {
             confirmButtonColor: "#1ace53",
           });
         }
-        console.log("Response:", res.data);
+        // console.log("Response:", res.data);
       })
       .catch((err) => {
         console.error("Error adding car:", err);

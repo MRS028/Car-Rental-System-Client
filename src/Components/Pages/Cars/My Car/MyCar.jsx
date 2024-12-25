@@ -6,6 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import NoCars from "./NoCar";
 import Swal from "sweetalert2";
+import useAxios from "../../../../Hooks/useAxios";
 
 const MyCars = () => {
   const [cars, setCars] = useState([]);
@@ -13,14 +14,14 @@ const MyCars = () => {
   const { user } = useContext(AuthContext);
   const userEmail = user?.email;
   const [sortOption, setSortOption] = useState({
-    field: "date", 
-    order: "desc", 
+    field: "date",
+    order: "desc",
   });
+  const axiosSecure = useAxios();
 
-  // Fetch cars by user email
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/myCars?email=${userEmail}`)
+    axiosSecure
+      .get(`/myCars?email=${userEmail}`)
       .then((res) => {
         setCars(res.data);
         setLoading(false);
@@ -30,8 +31,9 @@ const MyCars = () => {
         setLoading(false);
       });
   }, [userEmail]);
+  console.log(cars)
 
-//sorting 
+  //sorting
 
   const handleSortChange = (value) => {
     const [field, order] = value.split("-");
@@ -85,11 +87,13 @@ const MyCars = () => {
     });
   };
 
-//code block
+  //code block
 
   return (
     <div className="p-4 w-11/12 mx-auto">
-      <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">My Cars</h2>
+      <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+        My Cars
+      </h2>
 
       <div className="mb-4 flex justify-start lg:justify-end space-x-4 overflow-hidden">
         <select
@@ -97,10 +101,18 @@ const MyCars = () => {
           onChange={(e) => handleSortChange(e.target.value)}
           value={`${sortOption.field}-${sortOption.order}`}
         >
-          <option value="date-asc" className="font-semibold">Oldest to Newest</option>
-          <option value="date-desc" className="font-semibold">Newest to Oldest</option>
-          <option value="price-asc" className="font-semibold">Lowest to Highest</option>
-          <option value="price-desc" className="font-semibold">Highest to Lowest</option>
+          <option value="date-asc" className="font-semibold">
+            Oldest to Newest
+          </option>
+          <option value="date-desc" className="font-semibold">
+            Newest to Oldest
+          </option>
+          <option value="price-asc" className="font-semibold">
+            Lowest to Highest
+          </option>
+          <option value="price-desc" className="font-semibold">
+            Highest to Lowest
+          </option>
         </select>
       </div>
 
@@ -114,16 +126,25 @@ const MyCars = () => {
                 <th className="px-6 py-3 text-sm font-medium">SL</th>
                 <th className="px-6 py-3 text-sm font-medium">Car Image</th>
                 <th className="px-6 py-3 text-sm font-medium">Car Model</th>
-                <th className="px-6 py-3 text-sm font-medium">Daily Rental Price</th>
+                <th className="px-6 py-3 text-sm font-medium">
+                  Daily Rental Price
+                </th>
                 <th className="px-6 py-3 text-sm font-medium">Availability</th>
                 <th className="px-6 py-3 text-sm font-medium">Date Added</th>
-                <th className="px-6 py-3 text-sm font-medium text-left">Actions</th>
+                <th className="px-6 py-3 text-sm font-medium text-left">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
               {sortedCars.map((car, index) => (
-                <tr key={car._id} className="border-t border-gray-200 hover:bg-gray-100">
-                  <td className="px-6 py-4 font-semibold text-sm">{index + 1}</td>
+                <tr
+                  key={car._id}
+                  className="border-t border-gray-200 hover:bg-gray-100"
+                >
+                  <td className="px-6 py-4 font-semibold text-sm">
+                    {index + 1}
+                  </td>
                   <td className="px-6 py-4 text-sm">
                     {car.images && car.images.length > 0 ? (
                       <img
@@ -137,16 +158,29 @@ const MyCars = () => {
                   </td>
                   <td className="px-6 py-4 font-sem  text-sm">{car.model}</td>
                   <td className="px-6 py-4 font-sem text-sm">${car.price}</td>
-                  <td className="px-6 py-4 font-sem text-sm">{car.availability}</td>
-                  <td className="px-6 py-4 font-sem text-sm">{new Date(car.date).toLocaleDateString()}</td>
+                  <td className="px-6 py-4 font-sem text-sm">
+                    {car.availability}
+                  </td>
+                  <td className="px-6 py-4 font-sem text-sm">
+                    {new Date(car.date).toLocaleDateString()}
+                  </td>
                   <td className="px-6 py-4 text-sm flex space-x-4">
-                    <Link to={`/updateCar/${car._id}`} className="text-blue-500 hover:text-blue-800">
+                    <Link
+                      to={`/updateCar/${car._id}`}
+                      className="text-blue-500 hover:text-blue-800"
+                    >
                       <FaEdit className="w-6 h-8" />
                     </Link>
-                    <button onClick={() => handleDelete(car._id)} className="text-red-500 hover:text-red-800">
+                    <button
+                      onClick={() => handleDelete(car._id)}
+                      className="text-red-500 hover:text-red-800"
+                    >
                       <FaTrashAlt className="w-6 h-6" />
                     </button>
-                    <Link to={`/carDetails/${car._id}`} className="flex items-center space-x-2 text-green-600 hover:text-green-700 p-2 rounded-lg border border-green-500 hover:border-red-700">
+                    <Link
+                      to={`/carDetails/${car._id}`}
+                      className="flex items-center space-x-2 text-green-600 hover:text-green-700 p-2 rounded-lg border border-green-500 hover:border-red-700"
+                    >
                       <FaEye className="text-lg" />
                       <span>View Details</span>
                     </Link>

@@ -6,7 +6,7 @@ import {
   FaDollarSign,
   FaClipboardList,
   FaMapMarkerAlt,
-  FaTimes, 
+  FaTimes,
 } from "react-icons/fa";
 import { useDropzone } from "react-dropzone";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
@@ -28,7 +28,7 @@ const UpdateCar = () => {
     images: car.images || [],
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(true); 
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*",
@@ -51,7 +51,6 @@ const UpdateCar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-  
     if (
       !carData.model ||
       !carData.price ||
@@ -79,7 +78,7 @@ const UpdateCar = () => {
       formData.append("images", image);
     });
 
-    // Axios PUT 
+    // Axios PUT
     axios
       .put(`http://localhost:3000/cars/${id}`, formData, {
         headers: {
@@ -88,9 +87,17 @@ const UpdateCar = () => {
       })
       .then((response) => {
         //console.log(response);
-        Swal.fire("Success", response.data.message, "success");
-        navigate('/myCar')
-        setIsModalOpen(false); 
+        Swal.fire({
+          icon: "success",
+          title: "Thank You ",
+          text: "Car Updated Successfully!",
+          timer: 1500,
+          showConfirmButton: true,
+          confirmButtonColor: "#1ace53",
+        });
+
+        navigate("/myCar");
+        setIsModalOpen(false);
       })
       .catch((error) => {
         Swal.fire(
@@ -103,10 +110,10 @@ const UpdateCar = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    navigate('/myCar')
+    navigate("/myCar");
   };
 
-  if (!isModalOpen) return null; 
+  if (!isModalOpen) return null;
 
   return (
     <div className="fixed p-2 inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
@@ -117,7 +124,9 @@ const UpdateCar = () => {
         >
           <FaTimes /> {/* Close icon */}
         </button>
-        <h1 className="text-2xl font-bold text-center mb-4">Update Car Details</h1>
+        <h1 className="text-2xl font-bold text-center mb-4">
+          Update Car Details
+        </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Car Model */}
           <div className="flex items-center space-x-2">
@@ -191,17 +200,17 @@ const UpdateCar = () => {
             />
           </div>
           <div>
-          <label className="block font-medium">Seats</label>
-          <input
-            type="number"
-            name="seats"
-            defaultValue={4}
-            placeholder="No. of Seats"
-            value={carData.seats}
-            onChange={handleChange}
-            className="w-full border border-gray-300 p-2 rounded-lg"
-          />
-        </div>
+            <label className="block font-medium">Seats</label>
+            <input
+              type="number"
+              name="seats"
+              defaultValue={4}
+              placeholder="No. of Seats"
+              value={carData.seats}
+              onChange={handleChange}
+              className="w-full border border-gray-300 p-2 rounded-lg"
+            />
+          </div>
 
           {/* Description */}
           <div>

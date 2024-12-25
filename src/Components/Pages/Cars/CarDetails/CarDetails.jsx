@@ -14,7 +14,8 @@ const CarDetails = () => {
       : null;
 
   const features = carDetail.features;
-  const featured = features.split(",").map((feature) => feature.trim());
+  const featured = features ? features.split(",").map((f) => f.trim()) : [];
+
   // const featureObj = fea
   // console.log(featured);
 
@@ -23,7 +24,7 @@ const CarDetails = () => {
       {/* Car Image */}
       <div className="relative">
         <img
-          src={`data:${carImage.mimetype};base64,${carImage.data}`}
+          src={`data:${carImage?.mimetype};base64,${carImage?.data}`}
           alt="Car"
           className="rounded-lg w-full"
         />
@@ -223,7 +224,7 @@ const CarDetails = () => {
             {carDetail.availability ? "Available ✅": "Unavailable ❌" } 
             </td>
             <td className="border items-center border-gray-300 px-4 py-2 font-bold">
-            <Link to={`/carBooking/${carDetail._id}`} className="flex justify-center">
+            <Link to={carDetail.availability === "Available" ? `/carBooking/${carDetail._id}` : " "}  className="flex justify-center">
             <button
             
             className={`${

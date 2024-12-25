@@ -3,23 +3,32 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
 import { FaCar } from "react-icons/fa";
+import useAxios from "../../../../Hooks/useAxios";
 
 const RecentListings = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
+  const axiosSecure = useAxios();
 
   useEffect(() => {
-    axios.get("http://localhost:3000/allCars").then((res) => {
-      const sortedCars = res.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by recent date
+    // axios.get("http://localhost:3000/allCars").then((res) => {
+    //   const sortedCars = res.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by recent date
+    //   setCars(sortedCars);
+    //   setLoading(false); });
+
+      axiosSecure.get(`allCars`).then(res=>{
+        const sortedCars = res.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by recent date
       setCars(sortedCars);
       setLoading(false);
-    });
+      })
+
+   
   }, []);
 
   if (loading) {
     return <Loading></Loading>;
   }
-  console.log(cars[1]?.bookingCount)
+//   console.log(cars[1]?.bookingCount)
 
   return (
     <section className="my-10 w-11/12 mx-auto">
@@ -56,12 +65,12 @@ const RecentListings = () => {
                   {car.availability}
                 </span>
               </div>
-              <p className="text-sm font-semibold text-gray-500 mt-2">
+              <p className="text-sm font-semibold text-gray-600 mt-2">
                 <FaCar className="inline-block mr-1" />
-                {car?.bookingCount} Bookings
+                Bookings: {car?.bookingCount} Confirmed
               </p>
-              <p className="text-sm font-semibold text-gray-500">
-                Added{" "}
+              <p className="text-sm font-semibold text-gray-600">
+                Added: <span> </span>
                 {(() => {
                   const now = new Date();
                   const addedDate = new Date(car.date);

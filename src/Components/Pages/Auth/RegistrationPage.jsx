@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 const RegistrationPage = () => {
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [errors, setErrors] = useState({});
   const { createNewUser, updateUserProfile, logOut } = useContext(AuthContext);
 
   const togglePasswordVisibility = () => {
@@ -29,8 +30,31 @@ const RegistrationPage = () => {
     const { email, password, name, photoUrl } = Object.fromEntries(
       formData.entries()
     );
-    // console.log(email, password, name, photoUrl);
 
+    // Validation logic
+    const validationErrors = {};
+    if (!name.trim()) {
+      validationErrors.name = "Name is required.";
+    }
+    if (!email.trim()) {
+      validationErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      validationErrors.email = "Please enter a valid email address.";
+    }
+    if (!password.trim()) {
+      validationErrors.password = "Password is required.";
+    } else if (password.length < 6) {
+      validationErrors.password = "Password must be at least 6 characters.";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setErrors({}); // Clear previous errors if all inputs are valid
+
+    // Existing logic
     createNewUser(email, password)
       .then((result) => {
         updateUserProfile({ displayName: name, photoURL: photoUrl })
@@ -44,10 +68,10 @@ const RegistrationPage = () => {
               title: "Registration Successful!",
               text: "You have registered successfully.",
               timer: 2000,
-              showConfirmButton: false,
+              showConfirmButton: true,
+              confirmButtonColor: "#1ace53",
             });
           });
-
         console.log(result.user);
       })
       .catch((error) => {
@@ -57,8 +81,7 @@ const RegistrationPage = () => {
           text: "Something went wrong. Please try again.",
           showConfirmButton: true,
         });
-
-        console.log("ERROR", error.message);
+        // console.log("ERROR", error.message);
       });
   };
 
@@ -69,14 +92,11 @@ const RegistrationPage = () => {
           <Lottie animationData={registrationAnimation} loop={true} />
         </div>
         <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 border">
-          {/* Lottie Animation */}
-
-          {/* Registration Form */}
           <h2 className="text-2xl font-bold text-center text-green-500 mb-6">
             Register
           </h2>
           <form onSubmit={handleSubmit}>
-            {/* NAme */}
+            {/* Name */}
             <div className="mb-4 relative">
               <label
                 htmlFor="name"
@@ -95,7 +115,11 @@ const RegistrationPage = () => {
                   required
                 />
               </div>
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+              )}
             </div>
+
             {/* Email */}
             <div className="mb-4 relative">
               <label
@@ -114,7 +138,11 @@ const RegistrationPage = () => {
                   required
                 />
               </div>
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              )}
             </div>
+
             {/* Photo URL */}
             <div className="mb-6 relative">
               <label
@@ -133,7 +161,8 @@ const RegistrationPage = () => {
                 />
               </div>
             </div>
-            {/* password */}
+
+            {/* Password */}
             <div className="mb-4 relative">
               <label
                 htmlFor="password"
@@ -158,7 +187,11 @@ const RegistrationPage = () => {
                   {passwordVisible ? <AiFillEye /> : <AiFillEyeInvisible />}
                 </button>
               </div>
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+              )}
             </div>
+
             {/* Register Btn */}
             <button
               type="submit"

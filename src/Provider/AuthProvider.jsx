@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import app from "../Firebase/firebase.config";
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -19,7 +20,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   //   console.log(loading,user);
 
   //   console.log(user);
@@ -48,8 +49,6 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, updatedData);
   };
 
-
-
   //   Sendings
   const authInfo = {
     user,
@@ -60,18 +59,36 @@ const AuthProvider = ({ children }) => {
     loading,
     signInWithGoogle,
     updateUserProfile,
-
   };
 
- useEffect(() => {
-  const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-    setLoading(false);
-  });
-  return () => {
-    unSubscribe();
-  };
-}, []);
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log("state captured", currentUser);
+
+      if (currentUser?.email) {
+        const user = { email: currentUser.email };
+        axios
+          .post("http://localhost:3000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log("Logged in", res.data);
+            setLoading(false);
+          });
+      } else {
+        axios
+          .post("http://localhost:3000/logout", {}, { withCredentials: true })
+          .then((res) => {
+            console.log("Logged Out", res.data);
+            setLoading(false);
+          });
+      }
+
+      //put
+    });
+    return () => {
+      unSubscribe();
+    };
+  }, []);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
