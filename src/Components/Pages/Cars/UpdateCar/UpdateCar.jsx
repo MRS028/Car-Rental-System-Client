@@ -6,7 +6,7 @@ import {
   FaDollarSign,
   FaClipboardList,
   FaMapMarkerAlt,
-  FaTimes,  // Close icon
+  FaTimes, 
 } from "react-icons/fa";
 import { useDropzone } from "react-dropzone";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
@@ -28,7 +28,7 @@ const UpdateCar = () => {
     images: car.images || [],
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(true); // Modal visibility state
+  const [isModalOpen, setIsModalOpen] = useState(true); 
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*",
@@ -51,7 +51,7 @@ const UpdateCar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Form Validation
+  
     if (
       !carData.model ||
       !carData.price ||
@@ -63,7 +63,6 @@ const UpdateCar = () => {
       return;
     }
 
-    // Ensure at least one image is uploaded
     if (carData.images.length === 0) {
       Swal.fire("Error", "Please upload at least one image.", "error");
       return;
@@ -76,12 +75,11 @@ const UpdateCar = () => {
       }
     });
 
-    // Append images to FormData
     carData.images.forEach((image) => {
       formData.append("images", image);
     });
 
-    // Axios PUT request to update car data
+    // Axios PUT 
     axios
       .put(`http://localhost:3000/cars/${id}`, formData, {
         headers: {
@@ -89,10 +87,10 @@ const UpdateCar = () => {
         },
       })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         Swal.fire("Success", response.data.message, "success");
         navigate('/myCar')
-        setIsModalOpen(false); // Close modal after successful update
+        setIsModalOpen(false); 
       })
       .catch((error) => {
         Swal.fire(
@@ -105,7 +103,7 @@ const UpdateCar = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    navigate('/myCar') // Close the modal
+    navigate('/myCar')
   };
 
   if (!isModalOpen) return null; 
@@ -253,7 +251,7 @@ const UpdateCar = () => {
                   imageUrl =
                     typeof file === "string" ? file : URL.createObjectURL(file);
                 } catch (error) {
-                  console.error("Error creating object URL:", error);
+                  // console.error("Error creating object URL:", error);
                   return null;
                 }
                 return (

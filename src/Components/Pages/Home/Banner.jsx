@@ -44,7 +44,7 @@ const Banner = () => {
       image: slide5,
       heading: "Experience the Best Rides",
       buttonText: "Start Your Journey",
-      link: "/journey",
+      link: "/availableCars",
     },
   ];
 
@@ -62,9 +62,9 @@ const Banner = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000); // Change slide every 5 seconds
+    }, 5000); 
 
-    // Cleanup interval on component unmount
+
     return () => clearInterval(interval);
   }, []);
 

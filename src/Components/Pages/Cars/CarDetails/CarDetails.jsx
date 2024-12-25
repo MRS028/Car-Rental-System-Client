@@ -19,7 +19,7 @@ const CarDetails = () => {
   // console.log(featured);
 
   return (
-    <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+    <div className="max-w-4xl mx-auto bg-white border mb-5 mt-5 shadow-lg rounded-lg p-6">
       {/* Car Image */}
       <div className="relative">
         <img
@@ -134,7 +134,7 @@ const CarDetails = () => {
         </div>
       </div>
       <div>
-      <CarReviews></CarReviews>
+      {/* <CarReviews></CarReviews> */}
       </div>
 
       {/* Global Discount */}
@@ -211,7 +211,7 @@ const CarDetails = () => {
             <th className="border border-gray-300 px-4 py-2 ">Status</th>
             <th className="border text-center border-gray-300 px-4 py-2 ">
              { 
-                carDetail.availability === 'Available' ? "Available" : "😥"
+                carDetail.availability === 'Available' ? "Click For Booking Now!😍" : "😥"
             
              }
             </th>
@@ -219,16 +219,16 @@ const CarDetails = () => {
         </thead>
         <tbody>
           <tr>
-            <td className="border text-center border-gray-300 px-4 py-2 text-gray-900">
-            {carDetail.availability}
+            <td className="border text-center font-bold border-gray-300 px-4 py-2 text-gray-900">
+            {carDetail.availability ? "Available ✅": "Unavailable ❌" } 
             </td>
             <td className="border items-center border-gray-300 px-4 py-2 font-bold">
             <Link to={`/carBooking/${carDetail._id}`} className="flex justify-center">
             <button
             
-            className={`$ {
-              car.availability === "Available"
-                ? "text-white bg-green-500 btn hover:underline font-semibold text-sm hover:text-green-800"
+            className={`${
+              carDetail.availability === "Available"
+                ? "text-white bg-green-500 btn hover:underline font-semibold text-sm hover:bg-green-800"
                 : "font-semibold text-sm"
             } py-2 rounded btn`}
             disabled={carDetail.availability !== "Available"}

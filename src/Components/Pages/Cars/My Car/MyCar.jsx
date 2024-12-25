@@ -110,7 +110,7 @@ const MyCars = () => {
         <div className="overflow-x-auto mt-6">
           <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
             <thead>
-              <tr className="bg-blue-600 text-white text-left">
+              <tr className="bg-green-600 text-white text-left">
                 <th className="px-6 py-3 text-sm font-medium">SL</th>
                 <th className="px-6 py-3 text-sm font-medium">Car Image</th>
                 <th className="px-6 py-3 text-sm font-medium">Car Model</th>
@@ -135,10 +135,10 @@ const MyCars = () => {
                       <span>No Image</span>
                     )}
                   </td>
-                  <td className="px-6 py-4 text-sm">{car.model}</td>
-                  <td className="px-6 py-4 text-sm">${car.price}</td>
-                  <td className="px-6 py-4 text-sm">{car.availability}</td>
-                  <td className="px-6 py-4 text-sm">{new Date(car.date).toLocaleDateString()}</td>
+                  <td className="px-6 py-4 font-sem  text-sm">{car.model}</td>
+                  <td className="px-6 py-4 font-sem text-sm">${car.price}</td>
+                  <td className="px-6 py-4 font-sem text-sm">{car.availability}</td>
+                  <td className="px-6 py-4 font-sem text-sm">{new Date(car.date).toLocaleDateString()}</td>
                   <td className="px-6 py-4 text-sm flex space-x-4">
                     <Link to={`/updateCar/${car._id}`} className="text-blue-500 hover:text-blue-800">
                       <FaEdit className="w-6 h-8" />
@@ -146,7 +146,7 @@ const MyCars = () => {
                     <button onClick={() => handleDelete(car._id)} className="text-red-500 hover:text-red-800">
                       <FaTrashAlt className="w-6 h-6" />
                     </button>
-                    <Link to={`/carDetails/${car._id}`} className="flex items-center space-x-2 text-green-600 hover:text-blue-600 p-2 rounded-lg border border-green-500 hover:border-blue-700">
+                    <Link to={`/carDetails/${car._id}`} className="flex items-center space-x-2 text-green-600 hover:text-green-700 p-2 rounded-lg border border-green-500 hover:border-red-700">
                       <FaEye className="text-lg" />
                       <span>View Details</span>
                     </Link>

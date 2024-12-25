@@ -6,6 +6,7 @@ import Loading from "../Loading/Loading";
 import NoCars from "../Cars/My Car/NoCar";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import PriceChart from "./PriceChart";
 
 const MyBookings = () => {
   const { user } = useContext(AuthContext);
@@ -31,6 +32,10 @@ const MyBookings = () => {
   if (loading) {
     return <Loading />;
   }
+  const chartData = bookings.map((booking) => ({
+    carModel: booking?.carInfo?.model || "Unknown",
+    price: booking?.carInfo?.price || 0,
+  }));
 
   // Handle Modify
   const handleModify = (BookingID) => {
@@ -183,6 +188,8 @@ const MyBookings = () => {
           <h2 className="text-xl lg:text-3xl font-semibold pb-4">
             My Bookings
           </h2>
+
+        
           <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr className="bg-gray-100">
@@ -292,6 +299,8 @@ const MyBookings = () => {
               ))}
             </tbody>
           </table>
+
+          <PriceChart data={chartData} />
         </div>
       )}
     </div>

@@ -97,6 +97,7 @@ const AvailableCars = () => {
       >
         {sortedCars.map((car) => (
           <CarCard key={car.id} car={car} viewMode={viewMode} />
+          
         ))}
       </div>
     </div>
