@@ -15,11 +15,14 @@ const LoginPage = () => {
   };
   const navigate = useNavigate();
 
-  const {userLogin} = useContext(AuthContext);
+  const {userLogin,user} = useContext(AuthContext);
 
   const location = useLocation();
 
-
+//user
+ if(user){
+  return navigate('/')
+ }
 
   const handleLogin = (e) => {
       e.preventDefault();

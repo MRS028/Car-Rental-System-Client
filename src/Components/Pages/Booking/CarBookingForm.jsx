@@ -10,19 +10,16 @@ const CarBookingForm = () => {
   const userName = user?.displayName;
   const userEmail = user?.email;
   const navigate = useNavigate();
- 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
 
-    const { images,bookingStatus, ...bookingCar } = initialData;
+    const { images, bookingStatus, ...bookingCar } = initialData;
 
     bookingCar.registrationNumber = car.registrationNumber;
-    bookingCar.bookingStatus = 'Confirmed';
-
-    console.log("Booking Data:", bookingCar);
+    bookingCar.bookingStatus = "Confirmed";
 
     axios
       .post("http://localhost:3000/bookingCar", bookingCar, {
@@ -34,20 +31,31 @@ const CarBookingForm = () => {
         if (res.data.insertedId) {
           Swal.fire({
             icon: "success",
-            title: "Thank You!Booking Submitted Successfully!",
+            title: "Thank You! Booking Submitted Successfully!",
             text: "Have a nice journey!",
             timer: 1500,
             showConfirmButton: true,
             confirmButtonColor: "#1ace53",
           });
-          navigate('/MyBookings')
-          console.log(res.data);
-          // alert("Booking Submitted Successfully!");
+          navigate("/MyBookings");
         }
       })
       .catch((error) => {
         console.error("Error:", error);
         alert("There was an error submitting the booking.");
+      });
+  };
+  const handleCount = (carId) => {
+    console.log(car._id);
+    axios
+      .put(`http://localhost:3000/increment/${carId}`, { carId })
+      .then((response) => {
+        console.log("Response Data:", response.data);
+        if (response.data && response.data.bookingCount !== undefined) {
+          console.log("Booking Count Updated:", response.data.bookingCount);
+        } else {
+          console.error("Booking count not found in response!");
+        }
       });
   };
 
@@ -182,6 +190,7 @@ const CarBookingForm = () => {
 
       {/* Submit Button */}
       <button
+        onClick={() => handleCount(car._id)}
         type="submit"
         className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-700"
       >
