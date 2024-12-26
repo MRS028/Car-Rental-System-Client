@@ -284,7 +284,7 @@ const MyBookings = () => {
                   </td>
                   <td className="text-sm text-gray-700">
                     {booking.pickUpDate
-                      ? new Date(booking.pickUpDate).toLocaleString("en-GB", {
+                      ? new Date(booking.dropOffDate).toLocaleString("en-GB", {
                           day: "2-digit",
                           month: "2-digit",
                           year: "numeric",
