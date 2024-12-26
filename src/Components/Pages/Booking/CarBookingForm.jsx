@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import axios from "axios";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
@@ -11,6 +11,7 @@ const CarBookingForm = () => {
   const userName = user?.displayName;
   const userEmail = user?.email;
   const navigate = useNavigate();
+
   useDocumentTitle("Car Booking Form | Rent A Car");
 
   const handleSubmit = (e) => {
@@ -23,38 +24,85 @@ const CarBookingForm = () => {
     bookingCar.registrationNumber = car.registrationNumber;
     bookingCar.bookingStatus = "Confirmed";
 
-    axios
-      .post("https://car-rental-system-server-five.vercel.app/bookingCar", bookingCar, {
-        headers: {
-          "Content-Type": "application/json",
+    Swal.fire({
+      title: "Confirm Booking Details",
+      html: `
+        <div style="text-align: left;">
+          <p><strong>Car Model:</strong> ${car?.model || "N/A"}</p>
+          <p><strong>Registration Number:</strong> ${
+            car?.registrationNumber || "N/A"
+          }</p>
+          <p><strong>User Name:</strong> ${userName || "N/A"}</p>
+          <p><strong>Email:</strong> ${userEmail || "N/A"}</p>
+          <p><strong>Pick-up Location:</strong> ${
+            initialData.pickUpLocation
+          }</p>
+          <p><strong>Drop-off Location:</strong> ${
+            initialData.dropOffLocation
+          }</p>
+          <p><strong>Pick-up Date:</strong> ${initialData.pickUpDate}</p>
+          <p><strong>Drop-off Date:</strong> ${initialData.dropOffDate}</p>
+        </div>
+      `,
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonText: "Confirm Booking",
+      cancelButtonText: "Edit Details",
+      confirmButtonColor: "#1ace53",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      Swal.close();
+      Swal.fire({
+        title: "Loading...",
+        html: "Please wait while we load the data.",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
         },
-      })
-      .then((res) => {
-        if (res.data.insertedId) {
-          Swal.fire({
-            icon: "success",
-            title: "Thank You! Booking Submitted Successfully!",
-            text: "Have a nice journey!",
-            timer: 1500,
-            showConfirmButton: true,
-            confirmButtonColor: "#1ace53",
-          });
-          navigate("/MyBookings");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("There was an error submitting the booking.");
       });
+      if (result.isConfirmed) {
+        // Proceed to submit the booking
+        axios
+          .post(
+            "https://car-rental-system-server-five.vercel.app/bookingCar",
+            bookingCar,
+            { headers: { "Content-Type": "application/json" } }
+          )
+          .then((res) => {
+            Swal.close();
+            if (res.data.insertedId) {
+              Swal.fire({
+                icon: "success",
+                title: "Thank You! Booking Submitted Successfully!",
+                text: "Have a nice journey!",
+                timer: 1500,
+                showConfirmButton: true,
+                confirmButtonColor: "#1ace53",
+              });
+              navigate("/MyBookings");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            Swal.fire({
+              icon: "error",
+              title: "Oops!",
+              text: "There was an error submitting the booking.",
+            });
+          });
+      }
+    });
   };
+
   const handleCount = (carId) => {
-    // console.log(car._id);
     axios
-      .put(`https://car-rental-system-server-five.vercel.app/increment/${carId}`, { carId })
+      .put(
+        `https://car-rental-system-server-five.vercel.app/increment/${carId}`,
+        { carId }
+      )
       .then((response) => {
-        // console.log("Response Data:", response.data);
         if (response.data && response.data.bookingCount !== undefined) {
-          // console.log("Booking Count Updated:", response.data.bookingCount);
+          console.log("Booking Count Updated:", response.data.bookingCount);
         } else {
           console.error("Booking count not found in response!");
         }
@@ -71,7 +119,7 @@ const CarBookingForm = () => {
       </h2>
 
       <div className="grid grid-cols-2 gap-4 items-center mb-4">
-        {/* Name */}
+        {/* User Name */}
         <div>
           <label className="block mb-2 font-medium">Name</label>
           <input

@@ -227,7 +227,7 @@ const CarDetails = () => {
             {carDetail.availability ? "Available ✅": "Unavailable ❌" } 
             </td>
             <td className="border items-center border-gray-300 px-4 py-2 font-bold">
-            <Link to={carDetail.availability === "Available" ? `/carBooking/${carDetail._id}` : " "}  className="flex justify-center">
+            <Link to={carDetail.availability === "Available" ? `/carBooking/${carDetail._id}` :`/carBooking/${carDetail._id}`}  className="flex justify-center">
             <button
             
             className={`${

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
+import { Typewriter } from "react-simple-typewriter";
 
 const TestimonialCard = () => {
   const testimonialsData = [
@@ -44,9 +45,16 @@ const TestimonialCard = () => {
   return (
     <div className="bg-gray-100 py-16 px-5 overflow-hidden">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-gray-800">What They’re Talking About Remons</h2>
+        <h2 className="text-4xl font-bold text-gray-800">
+          <Typewriter
+                      words={["What They are Talking About Us?"]}
+                      loop={100}
+                      typeSpeed={80}
+                      deleteSpeed={50}
+                      delaySpeed={2000}
+                    /></h2>
         <p className="text-gray-600 mt-4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.
+         
         </p>
       </div>
 

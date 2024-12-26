@@ -32,7 +32,7 @@ const RecentListings = () => {
 
   return (
     <section className="my-10 w-11/12 mx-auto">
-      <h2 className="text-3xl font-semibold text-center mb-6">Recent Listings</h2>
+      <h2 className="text-4xl font-bold text-center mb-6">Recent Listings</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {cars.slice(0, 8).map((car) => (
           <motion.div
