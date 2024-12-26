@@ -13,12 +13,14 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import SocialLogin from "./SocialLogin";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errors, setErrors] = useState({});
   const { createNewUser, updateUserProfile, logOut } = useContext(AuthContext);
+  useDocumentTitle("Register | Rent A Car");
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);

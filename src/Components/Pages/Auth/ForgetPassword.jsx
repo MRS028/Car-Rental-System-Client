@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import {
+  AiOutlineMail,
+  AiOutlineLock,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
 import { Link } from "react-router-dom";
+import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
- 
+  useDocumentTitle("Forget Password | Rent A Car");
 
   const handleEmailChange = (e) => setEmail(e.target.value);
-
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -23,11 +28,16 @@ const ForgetPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-        <h2 className="text-3xl font-bold text-center text-green-500 mb-6">Forget Password</h2>
+        <h2 className="text-3xl font-bold text-center text-green-500 mb-6">
+          Forget Password
+        </h2>
         <form onSubmit={handleSubmit}>
           {/* Email Input */}
           <div className="mb-4 relative">
-            <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-medium mb-2"
+            >
               Email
             </label>
             <div className="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-green-500">
@@ -45,7 +55,6 @@ const ForgetPassword = () => {
           </div>
 
           {/* New Password Input */}
-         
 
           {/* Submit Button */}
           <button

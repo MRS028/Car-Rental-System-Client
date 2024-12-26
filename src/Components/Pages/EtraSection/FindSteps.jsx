@@ -2,11 +2,20 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaCar, FaMapMarkerAlt, FaRegSmile } from "react-icons/fa";
 import findsteps from "../../../assets/findSteps.jpg";
+import { Typewriter } from "react-simple-typewriter";
 
 const FindSteps = () => {
   return (
     <div className="text-center mt-10">
-      <h2 className="text-2xl lg:text-5xl font-semibold">How to Find A Car!</h2>
+      <h2 className="text-2xl lg:text-5xl font-semibold">
+     <Typewriter
+                 words={["How to Find A Car!"]}
+                 loop={100} 
+                 typeSpeed={80} 
+                 deleteSpeed={50} 
+                 delaySpeed={2000} 
+               />
+        </h2>
 
       <div className="flex flex-col mt-2  rounded-t-lg md:w-[80%] mx-auto text-center lg:flex-row items-center p-8 bg-gray-100">
         <div className="flex flex-col w-full lg:w-1/2 space-y-8">

@@ -41,7 +41,7 @@ function CarCard({ car, viewMode }) {
           <span className="text-yellow-400 text-2xl">★★★★★</span>
           <span
             
-            className={`${
+            className={`badge p-3 ${
               car.availability === "Available"
                 ? "text-white bg-blue-500 top-2 left-2   px-2 py-1 rounded  font-semibold text-sm p-2"
                 : "font-semibold text-sm text-white bg-red-500 p-2"

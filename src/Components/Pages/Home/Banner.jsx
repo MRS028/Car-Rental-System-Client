@@ -6,9 +6,11 @@ import slide3 from "../../../assets/slide-2.jpg";
 import slide1 from "../../../assets/car-rentals-1.jpg";
 import slide4 from "../../../assets/slide4.png";
 import slide5 from "../../../assets/slide5.jpg";
+import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
 const Banner = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  useDocumentTitle("Home | Rent A Car");
 
   const carouselData = [
     {
@@ -82,9 +84,9 @@ const Banner = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
           />
-          <div className="absolute text-center text-white bg-black bg-opacity-50 p-4 md:p-8 rounded-lg shadow-lg max-w-[90%] md:max-w-[70%] lg:max-w-[50%]">
+          <div className="absolute text-center text-white bg-black bg-opacity-50 p-4 md:p-8 rounded-lg shadow-lg lg:h-auto md:h-auto h-[220px] max-w-[90%] md:max-w-[70%] lg:max-w-[50%]">
             <motion.h1
-              className="text-2xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6"
+              className="text-2xl mb-10 md:text-4xl lg:text-6xl font-bold lg:mb-4 md:mb-6"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1, duration: 2 }}
@@ -107,20 +109,20 @@ const Banner = () => {
       {/* Previous Button */}
       <div className="absolute inset-y-0 left-2 flex items-center md:left-4 lg:left-8">
         <button
-          className="p-2 md:p-4 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-70"
+          className="p-2 md:p-4 bg-black bg-opacity-0 lg:bg-opacity-50 text-white rounded-full hover:bg-opacity-70"
           onClick={prevSlide}
         >
-          <FaArrowLeft size={16} className="md:size-4" />
+          <FaArrowLeft size={16} className="hidden lg:flex md:size-4" />
         </button>
       </div>
 
       {/* Next Button */}
       <div className="absolute inset-y-0 right-2 flex items-center md:right-4 lg:right-8">
         <button
-          className="p-2 md:p-4 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-70"
+          className="p-2 md:p-4 bg-black bg-opacity-0 lg:bg-opacity-50 text-white rounded-full hover:bg-opacity-70"
           onClick={nextSlide}
         >
-          <FaArrowRight size={16} className="md:size-4" />
+          <FaArrowRight size={16} className="hidden lg:flex md:size-4" />
         </button>
       </div>
     </div>

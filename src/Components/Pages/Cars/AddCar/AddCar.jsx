@@ -10,6 +10,7 @@ import { AuthContext } from "../../../../Provider/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useDocumentTitle from "../../../../Hooks/useDocumentTitle";
 
 const AddCar = () => {
   const { user } = useContext(AuthContext);
@@ -22,15 +23,16 @@ const AddCar = () => {
     seats: "",
     description: "",
     location: "",
-    bookingCount: 0, 
+    bookingCount: 0,
     images: [],
   });
 
   const [userDetails] = useState({
-    name: user?.displayName, 
+    name: user?.displayName,
     email: user.email,
   });
-  const navigate =useNavigate();
+  const navigate = useNavigate();
+  useDocumentTitle("Add Car | Rent A Car");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,9 +49,8 @@ const AddCar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const currentDate = new Date().toISOString(); 
-    const bookingStatus = "Pending"; 
-   
+    const currentDate = new Date().toISOString();
+    const bookingStatus = "Pending";
 
     const formData = new FormData();
     formData.append("model", carData.model);
@@ -70,7 +71,7 @@ const AddCar = () => {
     carData.images.forEach((file) => {
       formData.append("images", file);
     });
-    console.log(carData)
+    console.log(carData);
 
     axios
       .post("https://car-rental-system-server-five.vercel.app/cars", formData, {
@@ -86,14 +87,14 @@ const AddCar = () => {
             availability: "",
             registrationNumber: "",
             features: "",
-             seats: '',
+            seats: "",
             description: "",
             location: "",
             bookingCount: 0,
             images: [],
           });
           // console.log(res.data.insertedId)
-          navigate('/myCar')
+          navigate("/myCar");
           Swal.fire({
             icon: "success",
             title: "Thank You!",
@@ -239,7 +240,7 @@ const AddCar = () => {
         )}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+          className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600"
         >
           Add Car
         </button>

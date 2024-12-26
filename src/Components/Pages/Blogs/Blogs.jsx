@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaCarAlt, FaCalendarCheck, FaTools, FaMapMarkedAlt, FaMoneyBillWave, FaShieldAlt } from "react-icons/fa";
+import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
 const Blog = () => {
+  useDocumentTitle("Blogs | Rent A Car");
   const blogPosts = [
     {
       title: "How to Choose the Perfect Rental Car",

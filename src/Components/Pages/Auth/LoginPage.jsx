@@ -7,6 +7,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import SocialLogin from "./SocialLogin";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
 const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -16,6 +17,7 @@ const LoginPage = () => {
     setPasswordVisible(!passwordVisible);
   };
   const navigate = useNavigate();
+  useDocumentTitle("Log In | Rent A Car");
 
   const { userLogin, user } = useContext(AuthContext);
 

@@ -1,77 +1,79 @@
 import React from "react";
-import { FaCarAlt, FaMoneyBillWave, FaCalendarAlt, FaHeadset } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { FaCarAlt, FaBolt, FaMapMarkerAlt } from "react-icons/fa";
+import { TbGauge } from "react-icons/tb";
+import ScrollAnimation from "react-animate-on-scroll";
 import { Typewriter } from "react-simple-typewriter";
+import { Link } from "react-router-dom";
+import "animate.css";
 
 const WhyChooseUs = () => {
   const features = [
     {
-      icon: <FaCarAlt size={40} className="text-yellow-500" />,
-      title: "Wide Variety of Cars",
-      description: "From budget-friendly options to luxury vehicles.",
+      icon: <TbGauge className="text-yellow-500 text-6xl" />,
+      title: "4.6s",
+      description: "From 0km/h to 100km/h",
     },
     {
-      icon: <FaMoneyBillWave size={40} className="text-green-500" />,
-      title: "Affordable Prices",
-      description: "Competitive daily rates you can count on.",
+      icon: <FaCarAlt className="text-yellow-500 text-6xl" />,
+      title: "V8",
+      description: "Extremely Powerful",
     },
     {
-      icon: <FaCalendarAlt size={40} className="text-blue-500" />,
-      title: "Easy Booking Process",
-      description: "Seamlessly book your ride in just a few clicks.",
+      icon: <TbGauge className="text-yellow-500 text-6xl" />,
+      title: "320 km/h",
+      description: "Maximum Speed",
     },
     {
-      icon: <FaHeadset size={40} className="text-red-500" />,
-      title: "Customer Support",
-      description: "24/7 assistance for all your queries.",
+      icon: <FaBolt className="text-yellow-500 text-6xl" />,
+      title: "Double",
+      description: "Turbo Engine",
+    },
+    {
+      icon: <FaMapMarkerAlt className="text-yellow-500 text-6xl" />,
+      title: "Advanced",
+      description: "Electronics",
     },
   ];
 
   return (
-    <div className="bg-white py-10 w-[70%] mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 2,
-          repeat: 10, 
-          repeatDelay: 4, 
-        }}
-        className="text-center mb-8"
-      >
-        <h2 className="text-3xl lg:text-4xl p-2 font-bold">
+    <section className="bg-white py-12">
+      <div className="max-w-6xl mx-auto text-center px-6">
+        {/* Heading */}
+        <h2 className="text-4xl font-bold mb-8 animate__animated animate__fadeInDown">
           <Typewriter
-            words={["Why Choose Us?"]}
-            loop={100} 
-            typeSpeed={80} 
-            deleteSpeed={50} 
-            delaySpeed={2000} 
+            words={["Why Choose Us!"]}
+            loop={100}
+            typeSpeed={80}
+            deleteSpeed={50}
+            delaySpeed={2000}
           />
         </h2>
-        <p className="text-gray-600">
-          Explore the benefits we offer for your convenience.
-        </p>
-      </motion.div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
-        {features.map((feature, index) => (
-          <motion.div
-            key={index}
-            className="flex flex-col items-center text-center p-4 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-                duration: 5,
-                repeat: 10, 
-                repeatDelay: 4,
-            }}
-          >
-            <div className="mb-4">{feature.icon}</div>
-            <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-            <p className="text-gray-600">{feature.description}</p>
-          </motion.div>
-        ))}
+
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+          {features.map((feature, index) => (
+            <ScrollAnimation
+              key={index}
+              animateIn="animate__fadeInUp"
+              duration={1}
+              className="flex flex-col items-center text-center"
+            >
+              <div>{feature.icon}</div>
+              <h3 className="text-2xl font-semibold mt-4">{feature.title}</h3>
+              <p className="text-gray-600 mt-2">{feature.description}</p>
+            </ScrollAnimation>
+          ))}
+        </div>
+
+        {/* Call-to-Action Button */}
+        <Link
+          to="/blogs"
+          className="mt-8 inline-block px-6 py-3 bg-yellow-500 text-white font-bold rounded-full hover:bg-yellow-600 transition"
+        >
+          Read more
+        </Link>
       </div>
-    </div>
+    </section>
   );
 };
 

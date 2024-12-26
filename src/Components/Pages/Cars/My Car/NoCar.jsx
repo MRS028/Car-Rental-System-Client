@@ -44,7 +44,7 @@ const NoCars = () => {
           to="/addCar"
           className="btn mt-6 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transition-transform transform hover:scale-105"
         >
-          Add Your First Car
+          Add or Book Your First Car
         </Link>
       </motion.div>
     </motion.div>

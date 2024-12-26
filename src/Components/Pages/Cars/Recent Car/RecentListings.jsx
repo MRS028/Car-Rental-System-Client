@@ -37,10 +37,10 @@ const RecentListings = () => {
         {cars.slice(0, 8).map((car) => (
           <motion.div
             key={car._id}
-            className="card w-full bg-white shadow-lg rounded-lg hover:scale-105 hover:shadow-xl transition-all"
+            className="card w-full  bg-white shadow-lg rounded-lg hover:scale-105 hover:shadow-xl transition-all"
             whileHover={{ scale: 1.05 }}
           >
-            <figure className="h-64 w-full overflow-hidden rounded-t-lg bg-gray-200">
+            <figure className="h-full w-full lg:h-64 overflow-hidden rounded-t-lg bg-gray-200">
               {car.images && car.images.length > 0 ? (
                 <img
                   src={`data:${car.images[0].mimetype};base64,${car.images[0].data}`}
@@ -58,7 +58,7 @@ const RecentListings = () => {
               <p className="text-lg text-gray-700">${car.price} / day</p>
               <div className="my-2">
                 <span
-                  className={`badge ${
+                  className={`badge bg-green-500 p-3 ${
                     car.availability === "Available" ? "badge-success" : "badge-error"
                   }`}
                 >

@@ -2,11 +2,14 @@ import React from "react";
 import { FaHeart, FaShareAlt, FaCheckCircle } from "react-icons/fa";
 import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import CarReviews from "../CarReview/CarReviews";
+import useDocumentTitle from "../../../../Hooks/useDocumentTitle";
 
 const CarDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const carDetail = useLoaderData();
+
+  useDocumentTitle("Car Details | Rent A Car");
   // console.log(carDetail);
   const carImage =
     carDetail.images && carDetail.images.length > 0

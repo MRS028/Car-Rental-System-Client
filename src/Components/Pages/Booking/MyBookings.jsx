@@ -8,12 +8,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import PriceChart from "./PriceChart";
 import useAxios from "../../../Hooks/useAxios";
+import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
 const MyBookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  useDocumentTitle("My Booking | Rent A Car");
 
   const userEmail = user?.email;
   const axiosSecure = useAxios();
@@ -97,6 +99,9 @@ const MyBookings = () => {
             axiosSecure
               .get(`/myBookings?email=${userEmail}`)
               .then((res) => {
+                
+                 
+                
                 setBookings(res.data);
                 Swal.fire({
                   title: "Booking Updated",

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import NoCars from "./NoCar";
 import Swal from "sweetalert2";
 import useAxios from "../../../../Hooks/useAxios";
+import useDocumentTitle from "../../../../Hooks/useDocumentTitle";
 
 const MyCars = () => {
   const [cars, setCars] = useState([]);
@@ -18,6 +19,7 @@ const MyCars = () => {
     order: "desc",
   });
   const axiosSecure = useAxios();
+  useDocumentTitle("My Cars | Rent A Car");
 
   useEffect(() => {
     axiosSecure
@@ -164,25 +166,27 @@ const MyCars = () => {
                   <td className="px-6 py-4 font-sem text-sm">
                     {new Date(car.date).toLocaleDateString()}
                   </td>
-                  <td className="px-6 py-4 text-sm flex space-x-4">
-                    <Link
-                      to={`/updateCar/${car._id}`}
+                  <td className="px-6 py-4 text-sm flex justify-center space-x-4">
+                    
+                    <button
+                      
                       className="text-blue-500 hover:text-blue-800"
                     >
-                      <FaEdit className="w-6 h-8" />
-                    </Link>
+                    <Link to={`/updateCar/${car._id}`}><FaEdit className="h-8 w-7" /></Link>  
+                    </button>
+                    
                     <button
                       onClick={() => handleDelete(car._id)}
                       className="text-red-500 hover:text-red-800"
                     >
-                      <FaTrashAlt className="w-6 h-6" />
+                      <FaTrashAlt className="h-8 w-6" />
                     </button>
                     <Link
                       to={`/carDetails/${car._id}`}
                       className="flex items-center space-x-2 text-green-600 hover:text-green-700 p-2 rounded-lg border border-green-500 hover:border-red-700"
                     >
                       <FaEye className="text-lg" />
-                      <span>View Details</span>
+                      <span>View</span>
                     </Link>
                   </td>
                 </tr>

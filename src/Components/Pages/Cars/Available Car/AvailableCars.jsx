@@ -4,6 +4,7 @@ import CarCard from "./CarCard";
 import Loading from "../../Loading/Loading";
 import { FaTh, FaList } from "react-icons/fa";
 import useAxios from "../../../../Hooks/useAxios";
+import useDocumentTitle from "../../../../Hooks/useDocumentTitle";
 
 const AvailableCars = () => {
   const [cars, setCars] = useState([]);
@@ -11,6 +12,7 @@ const AvailableCars = () => {
   const [search, setSearch] = useState("");
   const [viewMode, setViewMode] = useState("grid");
   const [sortOption, setSortOption] = useState("date");
+  useDocumentTitle("Available Car | Rent A Car");
 
 
   const axiosSecure = useAxios()

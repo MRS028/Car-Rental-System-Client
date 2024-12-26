@@ -13,19 +13,18 @@ import {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const PriceChart = ({ data }) => {
-  
   const generateColors = (length) => {
     return Array.from({ length }, () => {
       let r = Math.floor(Math.random() * 200);
-      let g = Math.floor(Math.random() * 200); 
-      let b = Math.floor(Math.random() * 200); 
+      let g = Math.floor(Math.random() * 200);
+      let b = Math.floor(Math.random() * 200);
       return `rgba(${r}, ${g}, ${b}, 0.6)`;
     });
   };
 
-  const labels = data.map((item) => item.carModel); 
-  const prices = data.map((item) => item.price); 
-  const colors = generateColors(data.length); 
+  const labels = data.map((item) => item.carModel);
+  const prices = data.map((item) => item.price);
+  const colors = generateColors(data.length);
 
   const chartData = {
     labels,
@@ -34,7 +33,7 @@ const PriceChart = ({ data }) => {
         label: "Daily Rental Price ($)",
         data: prices,
         backgroundColor: colors,
-        borderColor: colors.map((color) => color.replace(/0.6/, "1")), 
+        borderColor: colors.map((color) => color.replace(/0.6/, "1")),
         borderWidth: 2,
       },
     ],
@@ -42,6 +41,7 @@ const PriceChart = ({ data }) => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Allow responsive height adjustment
     plugins: {
       legend: {
         position: "top",
@@ -110,7 +110,10 @@ const PriceChart = ({ data }) => {
 
   return (
     <div className="my-5 bg-gray-50 p-5 rounded shadow-lg">
-      <Bar data={chartData} options={options} />
+      {/* Responsive container */}
+      <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px]">
+        <Bar data={chartData} options={options} />
+      </div>
     </div>
   );
 };

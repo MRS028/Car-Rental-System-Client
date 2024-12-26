@@ -78,7 +78,7 @@ const Navbar = () => {
           <div className="flex justify-center lg:hidden">
             <button
               onClick={handleLogout}
-              className="btn btn-neutral w-28  text-white"
+              className="badge p-4 hover:bg-red-700 bg-red-500 w-26  text-white"
             >
               LogOut <LuLogOut />{" "}
             </button>
@@ -104,7 +104,7 @@ const Navbar = () => {
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className=" w-8"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

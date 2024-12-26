@@ -3,6 +3,7 @@ import { AuthContext } from "../../../Provider/AuthProvider";
 import axios from "axios";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
 const CarBookingForm = () => {
   const { user } = useContext(AuthContext);
@@ -10,6 +11,7 @@ const CarBookingForm = () => {
   const userName = user?.displayName;
   const userEmail = user?.email;
   const navigate = useNavigate();
+  useDocumentTitle("Car Booking Form | Rent A Car");
 
   const handleSubmit = (e) => {
     e.preventDefault();
