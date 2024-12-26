@@ -14,6 +14,7 @@ const MyBookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   useDocumentTitle("My Booking | Rent A Car");
 
@@ -36,6 +37,8 @@ const MyBookings = () => {
   if (loading) {
     return <Loading />;
   }
+  
+
   const chartData = bookings.map((booking) => ({
     carModel: booking?.carInfo?.model || "Unknown",
     price: booking?.carInfo?.price || 0,
@@ -84,6 +87,8 @@ const MyBookings = () => {
       confirmButtonText: "Confirm",
     }).then((result) => {
       if (result.isConfirmed) {
+        // setLoading(true)
+        
         const { startDate, endDate } = result.value;
 
         axios
@@ -96,19 +101,30 @@ const MyBookings = () => {
             }
           )
           .then((response) => {
+            Swal.close();
+            Swal.fire({
+              title: "Loading...",
+              html: "Please wait while we load the data.",
+              allowOutsideClick: false,
+              didOpen: () => {
+                Swal.showLoading(); 
+              },
+            });
+
             axiosSecure
               .get(`/myBookings?email=${userEmail}`)
               .then((res) => {
-                
-                 
-                
                 setBookings(res.data);
+                Swal.close();
                 Swal.fire({
                   title: "Booking Updated",
                   text: "The booking dates have been updated successfully.",
                   icon: "success",
                   timer: 1500,
+                  confirmButtonColor: "#28a745",
                 });
+                // setLoading(false)
+                
               })
               .catch((err) => {
                 console.error("Error fetching updated bookings:", err);
@@ -138,6 +154,7 @@ const MyBookings = () => {
         text: "This booking has already been canceled.",
         icon: "info",
         timer: 1500,
+        confirmButtonColor: "#28a745",
       });
       return;
     }
@@ -148,7 +165,7 @@ const MyBookings = () => {
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
+      cancelButtonColor: "#28a745",
       confirmButtonText: "Yes, Cancel it!",
     }).then((res) => {
       if (res.isConfirmed) {
@@ -162,15 +179,26 @@ const MyBookings = () => {
             }
           )
           .then((response) => {
+            Swal.close();
+            Swal.fire({
+              title: "Loading...",
+              html: "Please wait while we load the data.",
+              allowOutsideClick: false,
+              didOpen: () => {
+                Swal.showLoading(); 
+              },
+            });
             axiosSecure
               .get(`/myBookings?email=${userEmail}`)
               .then((res) => {
                 setBookings(res.data);
+                Swal.close();
                 Swal.fire({
                   title: "Booking Cancelled!",
                   text: "The booking status has been updated successfully.",
                   icon: "success",
                   timer: 1500,
+                  confirmButtonColor: "#28a745",
                 });
               })
               .catch((err) => {
@@ -309,7 +337,7 @@ const MyBookings = () => {
             </tbody>
           </table>
 
-          <PriceChart data={chartData} />
+          <PriceChart />
         </div>
       )}
     </div>

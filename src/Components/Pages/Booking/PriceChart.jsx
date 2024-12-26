@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
+import axios from "axios";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,9 +11,36 @@ import {
   Legend,
 } from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-const PriceChart = ({ data }) => {
+const PriceChart = () => {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://car-rental-system-server-five.vercel.app/allCars")
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   const generateColors = (length) => {
     return Array.from({ length }, () => {
       let r = Math.floor(Math.random() * 200);
@@ -22,7 +50,7 @@ const PriceChart = ({ data }) => {
     });
   };
 
-  const labels = data.map((item) => item.carModel);
+  const labels = data.map((item) => item.carName || "Unknown Model");
   const prices = data.map((item) => item.price);
   const colors = generateColors(data.length);
 
@@ -41,7 +69,7 @@ const PriceChart = ({ data }) => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Allow responsive height adjustment
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -110,8 +138,8 @@ const PriceChart = ({ data }) => {
 
   return (
     <div className="my-5 bg-gray-50 p-5 rounded shadow-lg">
-      {/* Responsive container */}
-      <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px]">
+      {/* Responsive chart container */}
+      <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px]">
         <Bar data={chartData} options={options} />
       </div>
     </div>
