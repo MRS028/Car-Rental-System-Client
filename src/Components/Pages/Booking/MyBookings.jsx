@@ -4,7 +4,7 @@ import { AuthContext } from "../../../Provider/AuthProvider";
 import axios from "axios";
 import Loading from "../Loading/Loading";
 import NoCars from "../Cars/My Car/NoCar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import PriceChart from "./PriceChart";
 import useAxios from "../../../Hooks/useAxios";
@@ -14,6 +14,7 @@ const MyBookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+
   // const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   useDocumentTitle("My Booking | Rent A Car");
@@ -37,7 +38,6 @@ const MyBookings = () => {
   if (loading) {
     return <Loading />;
   }
-  
 
   const chartData = bookings.map((booking) => ({
     carModel: booking?.carInfo?.model || "Unknown",
@@ -46,6 +46,7 @@ const MyBookings = () => {
 
   // Handle Modify
   const handleModify = (BookingID) => {
+    //console.log(BookingID);
     const preBookingStatus = bookings.find(
       (booking) => booking._id === BookingID
     );
@@ -88,7 +89,7 @@ const MyBookings = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // setLoading(true)
-        
+
         const { startDate, endDate } = result.value;
 
         axios
@@ -107,7 +108,7 @@ const MyBookings = () => {
               html: "Please wait while we load the data.",
               allowOutsideClick: false,
               didOpen: () => {
-                Swal.showLoading(); 
+                Swal.showLoading();
               },
             });
 
@@ -124,7 +125,6 @@ const MyBookings = () => {
                   confirmButtonColor: "#28a745",
                 });
                 // setLoading(false)
-                
               })
               .catch((err) => {
                 console.error("Error fetching updated bookings:", err);
@@ -185,7 +185,7 @@ const MyBookings = () => {
               html: "Please wait while we load the data.",
               allowOutsideClick: false,
               didOpen: () => {
-                Swal.showLoading(); 
+                Swal.showLoading();
               },
             });
             axiosSecure
@@ -215,6 +215,29 @@ const MyBookings = () => {
           });
       }
     });
+  };
+  //Permenantly delete this
+  const handleDelete = (id) => {
+    const bookingToCancel = bookings.find((booking) => booking._id === id);
+    // console.log(id);
+    if (bookingToCancel.bookingStatus === "Canceled") {
+      axios.delete(`http://localhost:3000/bookingcar/${id}`).then((res) => {
+        setBookings((pre) => pre.filter((book) => book._id !== id));
+        Swal.fire({
+          title: "Deleted",
+          text: "Item has been deleted successfully.",
+          icon: "success",
+          timer: 1500,
+        });
+      });
+    } else {
+      Swal.fire({
+        title: "STOP",
+        text: "This is your running Booking",
+        icon: "info",
+        timer: 1500,
+      });
+    }
   };
 
   return (
@@ -254,6 +277,7 @@ const MyBookings = () => {
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
                   Actions
                 </th>
+                <th className="px-6 py-3 text-sm font-medium">Delete This</th>
               </tr>
             </thead>
             <tbody>
@@ -331,6 +355,14 @@ const MyBookings = () => {
                     >
                       <FaTrashAlt /> Cancel
                     </button>
+                  </td>
+                  <td className="px-6 py-4 font-semibold text-sm flex justify-center">
+                    <button
+                      onClick={() => handleDelete(booking._id)}
+                      className="btn bg-white"
+                    >
+                      ❌
+                    </button>{" "}
                   </td>
                 </tr>
               ))}

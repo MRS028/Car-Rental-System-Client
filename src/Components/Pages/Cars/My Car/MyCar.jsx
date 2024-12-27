@@ -72,7 +72,9 @@ const MyCars = () => {
     }).then((res) => {
       if (res.isConfirmed) {
         axios
-          .delete(`https://car-rental-system-server-five.vercel.app/cars/${carId}`)
+          .delete(
+            `https://car-rental-system-server-five.vercel.app/cars/${carId}`
+          )
           .then((res) => {
             setCars((prevCars) => prevCars.filter((car) => car._id !== carId));
             Swal.fire("Deleted!", "The car has been deleted.", "success");
@@ -167,14 +169,12 @@ const MyCars = () => {
                     {new Date(car.date).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 text-sm flex justify-center space-x-4">
-                    
-                    <button
-                      
-                      className="text-blue-500 hover:text-blue-800"
-                    >
-                    <Link to={`/updateCar/${car._id}`}><FaEdit className="h-8 w-7" /></Link>  
+                    <button className="text-blue-500 hover:text-blue-800">
+                      <Link to={`/updateCar/${car._id}`}>
+                        <FaEdit className="h-8 w-7" />
+                      </Link>
                     </button>
-                    
+
                     <button
                       onClick={() => handleDelete(car._id)}
                       className="text-red-500 hover:text-red-800"

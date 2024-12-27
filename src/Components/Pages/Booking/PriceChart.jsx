@@ -50,7 +50,7 @@ const PriceChart = () => {
     });
   };
 
-  const labels = data.map((item) => item.carName || "Unknown Model");
+  const labels = data.map((item) => item.model || "Unknown Model");
   const prices = data.map((item) => item.price);
   const colors = generateColors(data.length);
 

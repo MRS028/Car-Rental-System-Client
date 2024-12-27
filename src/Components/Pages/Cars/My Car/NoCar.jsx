@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // import { Player } from "lottie-react";
 import noCarsAnimation from "../../../../assets/LottieFiles/noFile.json"; // Lottie JSON ফাইল ইম্পোর্ট করুন
 import Lottie from "lottie-react";
 
 const NoCars = () => {
+  const location = useLocation();
+  // console.log(location.pathname)
   return (
     <motion.div
       className="text-center flex flex-col items-center justify-center min-h-[50vh] bg-gray-50 rounded-lg shadow-xl p-8"
@@ -40,8 +42,10 @@ const NoCars = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.5 }}
       >
-        <Link
-          to="/addCar"
+        <Link to={
+          location.pathname === '/MyBookings' ? "/availableCars" : '/addCar'
+          }
+          
           className="btn mt-6 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transition-transform transform hover:scale-105"
         >
           Add or Book Your First Car

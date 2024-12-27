@@ -74,7 +74,7 @@ const RegistrationPage = () => {
               confirmButtonColor: "#1ace53",
             });
           });
-        console.log(result.user);
+        // console.log(result.user);
       })
       .catch((error) => {
         Swal.fire({
