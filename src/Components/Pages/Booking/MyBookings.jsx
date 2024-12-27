@@ -221,7 +221,7 @@ const MyBookings = () => {
     const bookingToCancel = bookings.find((booking) => booking._id === id);
     // console.log(id);
     if (bookingToCancel.bookingStatus === "Canceled") {
-      axios.delete(`http://localhost:3000/bookingcar/${id}`).then((res) => {
+      axios.delete(`https://car-rental-system-server-five.vercel.app/bookingcar/${id}`).then((res) => {
         setBookings((pre) => pre.filter((book) => book._id !== id));
         Swal.fire({
           title: "Deleted",
