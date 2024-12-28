@@ -8,28 +8,29 @@ const FindSteps = () => {
   return (
     <div className="text-center mt-10">
       <h2 className="text-2xl lg:text-5xl font-semibold">
-     <Typewriter
-                 words={["How to Find A Car!"]}
-                 loop={100} 
-                 typeSpeed={80} 
-                 deleteSpeed={50} 
-                 delaySpeed={2000} 
-               />
-        </h2>
+        <Typewriter
+          words={["How to Find A Car!"]}
+          loop={100}
+          typeSpeed={80}
+          deleteSpeed={50}
+          delaySpeed={2000}
+        />
+      </h2>
 
-      <div className="flex flex-col mt-2  rounded-t-lg md:w-[80%] mx-auto text-center lg:flex-row items-center p-8 bg-gray-100">
+      <div className="flex flex-col mt-2 rounded-t-lg md:w-[80%] mx-auto text-center lg:flex-row items-center p-8 bg-gray-100">
         <div className="flex flex-col w-full lg:w-1/2 space-y-8">
           {stepsData.map((step, index) => (
             <motion.div
               key={index}
               className="flex items-center space-x-4"
-              animate={{ x: -30 }}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               transition={{
-                duration: 2,
-                delay: index * 2,
+                duration: 0.8,
+                delay: index * 0.3,
                 ease: "easeOut",
-                repeat: Infinity,
               }}
+              viewport={{ once: true }} // Animate only once when in view
             >
               <div className="w-12 h-12 flex items-center justify-center bg-orange-500 text-white rounded-full">
                 {step.number}
@@ -47,8 +48,9 @@ const FindSteps = () => {
         <motion.div
           className="w-full pt-5 lg:w-1/2"
           initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, repeat: Infinity, repeatDelay: 3 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          viewport={{ once: true }} // Animate only once when in view
         >
           <img
             src={findsteps}

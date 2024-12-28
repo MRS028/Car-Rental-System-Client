@@ -15,13 +15,14 @@ const Home = () => {
     return (
         <div className=' text-center min-h-[1000px]'>
             <Banner></Banner>
+            <Testimonials></Testimonials>
             <RecentListings></RecentListings>
 
             <WhyChooseUs></WhyChooseUs>
             <SpecialOffers></SpecialOffers>
             <FindSteps></FindSteps>
             
-            <Testimonials></Testimonials>
+            
         </div>
     );
 };
