@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   FaCar,
@@ -13,6 +13,9 @@ import { useNavigate } from "react-router-dom";
 import useDocumentTitle from "../../../../Hooks/useDocumentTitle";
 
 const AddCar = () => {
+   useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   const { user } = useContext(AuthContext);
   const [carData, setCarData] = useState({
     model: "",

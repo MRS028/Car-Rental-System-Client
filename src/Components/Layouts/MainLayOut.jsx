@@ -4,6 +4,9 @@ import { Outlet } from "react-router-dom";
 import Footer from "../Pages/Shared/Footer";
 
 const MainLayOut = () => {
+   useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   //mouse right button disable code
   // useEffect(() => {

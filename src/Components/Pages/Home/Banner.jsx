@@ -79,11 +79,11 @@ const Banner = () => {
         }
       >
         {carouselData.map((slide) => (
-          <div key={slide.id} className="relative">
+          <div key={slide.id} className="relative w-full md:h-[480px] h-[280px]">
             <img
               src={slide.image}
               alt={slide.heading}
-              className="w-full  object-top lg:object-cover"
+              className="w-full h-full  object-top "
             />
             {/* <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center px-4 text-center text-white">
               <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold mb-4">

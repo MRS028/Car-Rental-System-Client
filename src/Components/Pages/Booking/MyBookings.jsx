@@ -11,6 +11,9 @@ import useAxios from "../../../Hooks/useAxios";
 import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
 const MyBookings = () => {
+   useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);

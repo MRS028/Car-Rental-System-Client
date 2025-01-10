@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaCarAlt, FaCalendarCheck, FaTools, FaMapMarkedAlt, FaMoneyBillWave, FaShieldAlt } from "react-icons/fa";
 import useDocumentTitle from "../../../Hooks/useDocumentTitle";
 
 const Blog = () => {
+   useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
+  
   useDocumentTitle("Blogs | Rent A Car");
   const blogPosts = [
     {

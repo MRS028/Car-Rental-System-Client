@@ -10,6 +10,9 @@ import useAxios from "../../../../Hooks/useAxios";
 import useDocumentTitle from "../../../../Hooks/useDocumentTitle";
 
 const MyCars = () => {
+   useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);

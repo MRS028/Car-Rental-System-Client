@@ -7,6 +7,10 @@ import useAxios from "../../../../Hooks/useAxios";
 import useDocumentTitle from "../../../../Hooks/useDocumentTitle";
 
 const AvailableCars = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
